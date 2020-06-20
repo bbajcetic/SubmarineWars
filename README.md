@@ -1,5 +1,5 @@
-Mine Seeker
+# Mine Seeker
 
--A game developed for the Android platform
--CMPT 276 Project
+- A game developed for the Android platform
+- CMPT 276 Project
 
