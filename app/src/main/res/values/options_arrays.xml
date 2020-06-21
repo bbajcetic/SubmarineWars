@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="default_number_of_mines">6</integer>
+    <integer-array name="number_of_mines_options">
+        <item>6</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </integer-array>
+
+    <integer name="default_board_size_x">4</integer>
+    <integer-array name="board_size_options_x">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </integer-array>
+
+    <integer name="default_board_size_y">6</integer>
+    <integer-array name="board_size_options_y">
+        <item>6</item>
+        <item>10</item>
+        <item>15</item>
+    </integer-array>
+</resources>
