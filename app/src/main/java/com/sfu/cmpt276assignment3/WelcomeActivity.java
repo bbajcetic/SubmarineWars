@@ -23,5 +23,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void skipToMainMenu(View view) {
         Intent mainMenuIntent = MainMenuActivity.makeIntent(this);
         startActivity(mainMenuIntent);
+        finish();
     }
 }
