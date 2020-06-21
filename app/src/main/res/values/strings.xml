@@ -3,4 +3,20 @@
     <string name="game_title">Mine Seeker</string>
     <string name="welcome_skip">Skip</string>
     <string name="welcome_developer_info">Developer: Branko Bajcetic</string>
+
+
+
+    <!-- Help screen -->
+    <string name="help_about_header">About the Developer</string>
+    <string name="help_about_content">
+        Branko Bajcetic is a developer attending Computing Science at Simon Fraser University in Surrey, B.C, Canada.
+        This game is a project for SFU\'s Software Engineering (CMPT 276) course. Webpage: https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276/home
+    </string>
+    <string name="help_game_header">Mine Seeker: How to Play</string>
+    <string name="help_game_content">
+        The goal of Mine Seeker is to find all of the mines in the least amount of guesses. Clicking on a square will uncover whether that square is a mine or not, and
+        how many hidden mines there are within the column and row of that square. When a mine is found, all squares in that mine\'s row and column will have their numbers
+        decremented by one, as there is one less hidden mine. Once all mines are found/clicked, you completed the game and your score will be shown.\n\n
+        Go to the Options screen to change the board size and the number of mines to set a high score for each configuration!
+    </string>
 </resources>
