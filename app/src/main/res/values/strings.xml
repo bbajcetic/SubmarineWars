@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">cmpt276assignment3</string>
+    <string name="welcome_game_title">Mine Seeker</string>
+    <string name="welcome_skip">Skip</string>
+    <string name="welcome_developer_info">Developer: Branko Bajcetic</string>
 </resources>
