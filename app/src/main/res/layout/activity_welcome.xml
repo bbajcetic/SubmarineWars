@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/welcome_game_title"
+        android:text="@string/game_title"
         android:textSize="64dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -27,7 +27,7 @@
         android:src="@drawable/welcome_bomb"/>
     <Button
         android:id="@+id/button_skip"
-        android:onClick="skipToMainMenu"
+        android:onClick="openMainMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="64dp"

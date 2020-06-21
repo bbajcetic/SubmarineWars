@@ -20,7 +20,7 @@ public class WelcomeActivity extends AppCompatActivity {
         buttonSkip = findViewById(R.id.button_skip);
     }
 
-    public void skipToMainMenu(View view) {
+    public void openMainMenu(View view) {
         Intent mainMenuIntent = MainMenuActivity.makeIntent(this);
         startActivity(mainMenuIntent);
         finish();

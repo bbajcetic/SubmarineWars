@@ -10,10 +10,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainMenuActivity"
+        <activity android:name=".GameActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".OptionsActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".HelpActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="landscape"
