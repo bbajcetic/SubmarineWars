@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 public class OptionsActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         prefs = this.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
 
+        setupBackArrow();
         createRadioButtons();
     }
 
@@ -128,4 +131,14 @@ public class OptionsActivity extends AppCompatActivity {
         return intent;
     }
 
+    public void clickBackArrow(View view) {
+        finish();
+    }
+
+    private void setupBackArrow() {
+        ImageButton backArrow = findViewById(R.id.back_arrow);
+        backArrow.setImageResource(R.drawable.arrow_animation);
+        AnimationDrawable moveAnimation = (AnimationDrawable)backArrow.getDrawable();
+        moveAnimation.start();
+    }
 }

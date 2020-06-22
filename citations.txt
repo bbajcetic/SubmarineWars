@@ -15,3 +15,5 @@ Citations to include in the game:
     -https://opengameart.org/content/water 
 -main menu bomb:
     -https://opengameart.org/content/bomb-1
+-arrow:
+    -https://opengameart.org/content/rpg-gui-selection-arrow

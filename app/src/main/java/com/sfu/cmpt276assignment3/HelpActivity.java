@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -13,6 +14,8 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,14 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help);
 
         setupWebpageLink();
+        setupBackArrow();
+    }
+
+    private void setupBackArrow() {
+        ImageButton backArrow = findViewById(R.id.back_arrow);
+        backArrow.setImageResource(R.drawable.arrow_animation);
+        AnimationDrawable moveAnimation = (AnimationDrawable)backArrow.getDrawable();
+        moveAnimation.start();
     }
 
     private void setupWebpageLink() {
@@ -49,5 +60,9 @@ public class HelpActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, HelpActivity.class);
         return intent;
+    }
+
+    public void clickBackArrow(View view) {
+        finish();
     }
 }

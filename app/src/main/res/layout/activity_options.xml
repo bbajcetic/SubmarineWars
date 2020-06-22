@@ -1,70 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingVertical="16dp"
-    android:paddingHorizontal="64dp"
     tools:context=".OptionsActivity"
     android:background="@drawable/water1">
-
-    <TextView
-        android:id="@+id/text_options_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Options"
-        android:layout_gravity="center_horizontal"
-        style="@style/game_screen_title_text"/>
-
+    <ImageButton
+        android:id="@+id/back_arrow"
+        android:onClick="clickBackArrow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/arrow01"
+        android:background="@android:color/transparent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
-        android:id="@+id/layout_board_size"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:background="@color/transparent_light_blue">
-        <RadioGroup
-            android:id="@+id/radio_group_board_size"
-            android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="64dp"
+        tools:context=".OptionsActivity">
+
+        <TextView
+            android:id="@+id/text_options_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp">
+            android:text="Options"
+            android:layout_gravity="center_horizontal"
+            style="@style/game_screen_title_text"/>
 
-            <TextView
-                android:id="@+id/header_board_size"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Board Size:"
-                style="@style/game_small_header_text"/>
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_number_of_submarines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:background="@color/transparent_light_blue">
-        <RadioGroup
-            android:id="@+id/radio_group_number_of_submarines"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_board_size"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp">
-            <TextView
-                android:id="@+id/header_number_of_submarines"
-                android:layout_width="240dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:padding="4dp"
+            android:background="@color/transparent_light_blue">
+            <RadioGroup
+                android:id="@+id/radio_group_board_size"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:text="Number of Submarines:"
-                style="@style/game_small_header_text"/>
-        </RadioGroup>
+                android:layout_marginTop="32dp">
+
+                <TextView
+                    android:id="@+id/header_board_size"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:text="Board Size:"
+                    style="@style/game_small_header_text"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_number_of_submarines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:background="@color/transparent_light_blue">
+            <RadioGroup
+                android:id="@+id/radio_group_number_of_submarines"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp">
+                <TextView
+                    android:id="@+id/header_number_of_submarines"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:text="Number of Submarines:"
+                    style="@style/game_small_header_text"/>
+            </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
