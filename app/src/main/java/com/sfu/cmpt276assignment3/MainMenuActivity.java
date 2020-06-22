@@ -38,10 +38,10 @@ public class MainMenuActivity extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.setBackgroundResource(R.color.transparent_light_green_selected);
+                    v.setBackgroundResource(R.drawable.menu_button_selected);
                     return false;
                 case MotionEvent.ACTION_UP:
-                    v.setBackgroundResource(R.color.transparent_light_green);
+                    v.setBackgroundResource(R.drawable.menu_button);
                     return false;
             }
             return false;
