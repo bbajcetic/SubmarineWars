@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">cmpt276assignment3</string>
-    <string name="game_title">Mine Seeker</string>
+    <string name="game_title">Submarine Wars</string>
     <string name="welcome_skip">Skip</string>
     <string name="welcome_developer_info">Developer: Branko Bajcetic</string>
 
@@ -9,14 +9,24 @@
     <!-- Help screen -->
     <string name="help_about_header">About the Developer</string>
     <string name="help_about_content">
-        Branko Bajcetic is a developer attending Computing Science at Simon Fraser University in Surrey, B.C, Canada.
-        This game is a project for SFU\'s Software Engineering (CMPT 276) course. Webpage: https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276/home
+        Branko Bajcetic is a Computing Science student at Simon Fraser University in Burnaby, B.C, Canada.
+        This game is a project for SFU\'s Software Engineering (CMPT 276) course.\nWebpage: https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276/home
     </string>
-    <string name="help_game_header">Mine Seeker: How to Play</string>
-    <string name="help_game_content">
-        The goal of Mine Seeker is to find all of the mines in the least amount of guesses. Clicking on a square will uncover whether that square is a mine or not, and
-        how many hidden mines there are within the column and row of that square. When a mine is found, all squares in that mine\'s row and column will have their numbers
-        decremented by one, as there is one less hidden mine. Once all mines are found/clicked, you completed the game and your score will be shown.\n\n
-        Go to the Options screen to change the board size and the number of mines to set a high score for each configuration!
+
+    <string name="help_game_objective">
+        "In Submarine Wars, you are a pilot, and it is your goal to try to destroy all of the enemy's submarines with the least amount of sonar missiles."
     </string>
+    <string name="help_game_controls">
+        "Select a spot in the water grid to fire a missile, which will use sonar to find the number of nearby submarines."
+    </string>
+    <string name="help_game_tactics">
+        "When selecting a grid spot, you'll either see a destroyed submarine, or if you miss, a number indicating the number of hidden submarines"
+        "in the same row and column as this spot."
+    </string>
+    <string name="help_game_over">
+        "Game Over: Once all submarines are destroyed, your score will be the number of missiles you launched. Try to get your score as low as possible!"
+    </string>
+    <string name="help_objective_title">Objective</string>
+    <string name="help_controls_title">Controls</string>
+    <string name="help_tactics_title">Tactics</string>
 </resources>

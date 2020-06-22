@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="default_number_of_mines">6</integer>
-    <integer-array name="number_of_mines_options">
+    <integer name="default_number_of_submarines">6</integer>
+    <integer-array name="number_of_submarines_options">
         <item>6</item>
         <item>10</item>
         <item>15</item>

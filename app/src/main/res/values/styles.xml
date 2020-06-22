@@ -16,4 +16,40 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="game_title_text">
+        <item name="android:fontFamily">@font/font_military_progress</item>
+        <item name="android:textSize">36dp</item>
+        <item name="android:textColor">@android:color/white </item>
+    </style>
+    <style name="game_header_text">
+        <item name="android:fontFamily">@font/font_uss_dallas</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="game_small_header_text">
+        <item name="android:fontFamily">@font/font_motion_control_bold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <style name="game_screen_title_text">
+        <item name="android:fontFamily">@font/font_laconic_bold</item>
+        <item name="android:textSize">36dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="game_button_text">
+        <item name="android:fontFamily">@font/font_laconic_bold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="game_regular_text">
+        <item name="android:fontFamily">@font/font_laconic_bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
 </resources>
