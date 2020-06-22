@@ -9,15 +9,18 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
@@ -27,6 +30,14 @@ public class GameActivity extends AppCompatActivity {
     int numCols;
     int numRows;
     int numSubmarines;
+
+    int missiles_fired = 0;
+    int submarines_destroyed = 0;
+
+    TextView missileInfo;
+    TextView subInfo;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +48,30 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numCols][numRows];
         values = new int[numCols][numRows];
 
+        setupInfoBox();
         setupGrid();
-        setupBackgrounds();
+        setupBackArrow();
     }
 
+    private void setupInfoBox() {
+        missileInfo = findViewById(R.id.text_missiles_information);
+        subInfo = findViewById(R.id.text_submarines_information);
+        updateInfoBox();
+    }
+    private void updateInfoBox() {
+        String missileInfoString = getResources().getString(R.string.game_missile_info);
+        String subInfoString = getResources().getString(R.string.game_submarines_info);
+        missileInfo.setText(missileInfoString + Integer.toString(missiles_fired));
+        subInfo.setText(subInfoString + String.format("%d/%d", submarines_destroyed, numSubmarines));
+
+    }
+
+    private void setupBackArrow() {
+        ImageButton backArrow = findViewById(R.id.back_arrow);
+        backArrow.setImageResource(R.drawable.arrow_animation);
+        AnimationDrawable moveAnimation = (AnimationDrawable)backArrow.getDrawable();
+        moveAnimation.start();
+    }
     private void setupGrid() {
         LinearLayout grid = findViewById(R.id.game_grid);
         for (int row = 0; row < numRows; row++) {
@@ -73,42 +104,26 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void setupBackgrounds() {
-        int x = OptionsActivity.getBoardSizeX(this);
-        int y = OptionsActivity.getBoardSizeY(this);
-        for (int row = 0; row < y; row++) {
-            for (int col = 0; col < x; col++) {
-                //setWaterBackground(col, row);
-            }
-        }
-    }
-
     private void gridButtonClicked(int col, int row) {
+        missiles_fired++;
+        submarines_destroyed++;
         Toast.makeText(this, String.format("Button at %d, %d clicked", col, row), Toast.LENGTH_SHORT).show();
         Button button = buttons[col][row];
-        /*int width = button.getWidth();
-        int height = button.getHeight();
-        setWaterBackground(col, row);
-        button.setLayoutParams(new TableRow.LayoutParams(
-                width, height, 1.0f
-        ));*/
         setWaterBackground(col, row);
         values[col][row]++;
         button.setText(Integer.toString(values[col][row]));
         button.setTextColor(getResources().getColor(android.R.color.holo_red_light));
         button.setTextSize(48);
         button.setTypeface(ResourcesCompat.getFont(this, R.font.font_motion_control_bold), Typeface.BOLD);
+        updateInfoBox();
     }
 
     private void setWaterBackground(int col, int row) {
         Button button = buttons[col][row];
         Log.d("TAG", "" + col + " " + row);
-        //button.setBackground(getResources().getDrawable(R.drawable.water1));
 
         // Lock buttons
         lockButtonSizes();
-        // Does not scale image
-        //button.setBackground(getResources().getDrawable(R.drawable.grid_element));
         int width = button.getWidth();
         int height = button.getHeight();
 
@@ -142,5 +157,9 @@ public class GameActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, GameActivity.class);
         return intent;
+    }
+
+    public void clickBackArrow(View view) {
+        finish();
     }
 }
