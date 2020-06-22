@@ -92,7 +92,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private String getBoardSizeString(int boardX, int boardY) {
-        return String.format("%dx%d", boardX, boardY);
+        return String.format("%dx%d", boardY, boardX); // rows x columns
     }
     private String getNumberOfSubmarinesString(int numSubmarines) {
         return String.format("%d subs", numSubmarines);

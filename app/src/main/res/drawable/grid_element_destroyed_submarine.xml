@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="5dp" android:color="@color/transparent_light_green_selected"/>
+            <solid android:color="#00FF00"/>
+        </shape>
+    </item>
+    <item>
+        <inset
+            android:drawable="@drawable/water1" android:insetBottom="2dp"
+            android:insetLeft="2dp" android:insetRight="2dp" android:insetTop="2dp"/>
+    </item>
+    <item>
+        <inset
+            android:drawable="@drawable/destroyed_submarine3" android:insetBottom="2dp"
+            android:insetLeft="2dp" android:insetRight="2dp" android:insetTop="2dp"/>
+    </item>
+</layer-list>

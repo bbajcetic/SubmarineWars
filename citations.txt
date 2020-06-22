@@ -17,3 +17,5 @@ Citations to include in the game:
     -https://opengameart.org/content/bomb-1
 -arrow:
     -https://opengameart.org/content/rpg-gui-selection-arrow
+-submarine:
+    -https://opengameart.org/content/battleships

@@ -8,15 +8,15 @@
         <item>20</item>
     </integer-array>
 
-    <integer name="default_board_size_x">4</integer>
-    <integer-array name="board_size_options_x">
+    <integer name="default_board_size_y">4</integer>
+    <integer-array name="board_size_options_y">
         <item>4</item>
         <item>5</item>
         <item>6</item>
     </integer-array>
 
-    <integer name="default_board_size_y">6</integer>
-    <integer-array name="board_size_options_y">
+    <integer name="default_board_size_x">6</integer>
+    <integer-array name="board_size_options_x">
         <item>6</item>
         <item>10</item>
         <item>15</item>
