@@ -1,0 +1,17 @@
+Citations to include in the game:
+-Header font:
+    -https://www.fontspace.com/uss-dallas-font-f33583
+-Title font:
+    -https://www.fontspace.com/progress-font-f44241
+-regular text font:
+    -
+-regular header font:
+    -https://www.1001fonts.com/motion-control-font.html
+-regular text font:
+    -https://cooltext.com/Download-Font-Laconic
+-background image of water:
+    -https://opengameart.org/content/water-tiles
+-lighter background of water (help, options)
+    -https://opengameart.org/content/water 
+-main menu bomb:
+    -https://opengameart.org/content/bomb-1

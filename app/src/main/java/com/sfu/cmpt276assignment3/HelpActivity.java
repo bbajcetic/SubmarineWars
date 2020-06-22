@@ -37,7 +37,6 @@ public class HelpActivity extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Toast.makeText(HelpActivity.this, "ok", Toast.LENGTH_SHORT).show();
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(webpage));
                 startActivity(browserIntent);
             }
