@@ -18,15 +18,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class GameActivity extends AppCompatActivity {
 
     Button[][] buttons;
-    int[][] values;
+
+    /* Data Structures for game computation */
+    // isClicked[][] indicated whether that specific spot has been clicked
+    // isSubmarines[x][y] indicates whether that spot in the grid has a submarine
+    // submarinesInCol[x] holds the number of submarines in that column
+    // submarinesInRow[x] holds the number of submarines in that row
+    boolean[][] isClicked;
+    boolean[][] isSubmarine;
+    int[] submarinesInCol;
+    int[] submarinesInRow;
+
     int numCols;
     int numRows;
     int numSubmarines;
@@ -37,20 +48,49 @@ public class GameActivity extends AppCompatActivity {
     TextView missileInfo;
     TextView subInfo;
 
+    Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        random = new Random();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         numSubmarines = OptionsActivity.getNumberOfSubmarines(this);
         numCols = OptionsActivity.getBoardSizeX(this);
         numRows = OptionsActivity.getBoardSizeY(this);
-        buttons = new Button[numCols][numRows];
-        values = new int[numCols][numRows];
 
+        setupSubmarines();
         setupInfoBox();
         setupGrid();
         setupBackArrow();
+    }
+
+    private void setupSubmarines() {
+        isClicked = new boolean[numRows][numCols];
+        isSubmarine = new boolean[numRows][numCols];
+        submarinesInCol = new int[numCols];
+        submarinesInRow = new int[numRows];
+        // initialize all spots to false
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                isSubmarine[row][col] = false;
+                isClicked[row][col] = false;
+            }
+        }
+
+        // generate numSubmarines randomly in the boolean multi-array isSubmarine
+        int submarinesLeft = numSubmarines;
+        while (submarinesLeft > 0) {
+            int randomNum = random.nextInt(numCols * numRows);
+            int row = randomNum / numCols;
+            int col = randomNum - (row * numCols);
+            if (!isSubmarine[row][col]) {
+                isSubmarine[row][col] = true;
+                submarinesLeft--;
+                submarinesInCol[col]++;
+                submarinesInRow[row]++;
+            }
+        }
     }
 
     private void setupInfoBox() {
@@ -63,7 +103,6 @@ public class GameActivity extends AppCompatActivity {
         String subInfoString = getResources().getString(R.string.game_submarines_info);
         missileInfo.setText(missileInfoString + Integer.toString(missiles_fired));
         subInfo.setText(subInfoString + String.format("%d/%d", submarines_destroyed, numSubmarines));
-
     }
 
     private void setupBackArrow() {
@@ -73,6 +112,7 @@ public class GameActivity extends AppCompatActivity {
         moveAnimation.start();
     }
     private void setupGrid() {
+        buttons = new Button[numRows][numCols];
         LinearLayout grid = findViewById(R.id.game_grid);
         for (int row = 0; row < numRows; row++) {
             LinearLayout tableRow = new LinearLayout(this);
@@ -91,43 +131,70 @@ public class GameActivity extends AppCompatActivity {
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f
                 ));
-                button.setBackground(getResources().getDrawable(R.drawable.grid_element));
+                if (isSubmarine[row][col]) {
+                    button.setBackground(getResources().getDrawable(R.drawable.grid_element_with_submarine));
+                } else {
+                    button.setBackground(getResources().getDrawable(R.drawable.grid_element));
+                }
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gridButtonClicked(FINAL_COL, FINAL_ROW);
+                        gridButtonClicked(FINAL_ROW, FINAL_COL);
                     }
                 });
-                buttons[col][row] = button;
+                buttons[row][col] = button;
                 tableRow.addView(button);
             }
         }
     }
 
-    private void gridButtonClicked(int col, int row) {
-        missiles_fired++;
-        submarines_destroyed++;
+    private void gridButtonClicked(int row, int col) {
         Toast.makeText(this, String.format("Button at %d, %d clicked", col, row), Toast.LENGTH_SHORT).show();
-        Button button = buttons[col][row];
-        setWaterBackground(col, row);
-        values[col][row]++;
-        button.setText(Integer.toString(values[col][row]));
-        button.setTextColor(getResources().getColor(android.R.color.holo_red_light));
-        button.setTextSize(48);
-        button.setTypeface(ResourcesCompat.getFont(this, R.font.font_motion_control_bold), Typeface.BOLD);
+
+        if (!isClicked[row][col]) {
+            isClicked[row][col] = true;
+            missiles_fired++;
+            if(isSubmarine[row][col]) {
+                submarines_destroyed++;
+                setBackground(row, col, R.drawable.grid_element_destroyed_submarine);
+                submarinesInRow[row]--;
+                submarinesInCol[col]--;
+                updateHiddenNumbers();
+            } else {
+                displayHiddenNumber(row, col);
+            }
+        }
+
         updateInfoBox();
     }
+    private void displayHiddenNumber(int row, int col) {
+        Button button = buttons[row][col];
+        int num_hidden = submarinesInRow[row] + submarinesInCol[col];
+        button.setText(Integer.toString(num_hidden));
+        button.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+        button.setTextSize(48);
+        button.setTypeface(ResourcesCompat.getFont(this, R.font.font_motion_control_bold), Typeface.BOLD);
+    }
+    private void updateHiddenNumbers() {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                if(isClicked[row][col] && !isSubmarine[row][col]) {
+                    displayHiddenNumber(row, col);
+                }
+            }
+        }
+    }
 
-    private void setWaterBackground(int col, int row) {
-        Button button = buttons[col][row];
-        Log.d("TAG", "" + col + " " + row);
+    private void setBackground(int row, int col, int drawable_resource) {
+        Button button = buttons[row][col];
+        Log.d("TAG", "" + row + " " + col);
 
         // Lock buttons
         lockButtonSizes();
         int width = button.getWidth();
         int height = button.getHeight();
 
-        LayerDrawable layerDrawable = (LayerDrawable) getResources().getDrawable(R.drawable.grid_element_destroyed_submarine);
+        LayerDrawable layerDrawable = (LayerDrawable) getResources().getDrawable(drawable_resource);
         layerDrawable.setBounds(0, 0, width, height);
         // already to scale because you create a bitmap with this size
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -141,7 +208,7 @@ public class GameActivity extends AppCompatActivity {
 
         for (int row = 0; row < y; row++) {
             for (int col = 0; col < x; col++) {
-                Button button = buttons[col][row];
+                Button button = buttons[row][col];
                 button.setPadding(0, 0, 0, 0);
                 int width = button.getWidth();
                 int height = button.getHeight();
