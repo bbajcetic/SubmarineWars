@@ -54,7 +54,7 @@ public class WelcomeActivity extends AppCompatActivity {
         imageSubmarine.setAlpha(0.0f);
         imageBomb.setAlpha(0.0f);
         buttonSkip.setAlpha(0.0f);
-        
+
         animateTitle();
 
         // bomb, developer text, skip button
@@ -105,6 +105,10 @@ public class WelcomeActivity extends AppCompatActivity {
         //move_set.play(submarine_rotate1).after(submarine_move4);
         move_set.play(submarine_move5).after(submarine_move4);
         move_set.play(submarine_move6).after(submarine_move5);
+        // 4 second delay before going to the Main Menu
+        // (chose alpha animation because it's easy to create a delay this way, without needing
+        //  another thread)
+        move_set.play(ObjectAnimator.ofFloat(imageSubmarine, View.ALPHA, 0.0f).setDuration(4000)).after(submarine_move6);
         move_set.start();
 
         move_set.addListener(new Animator.AnimatorListener() {
