@@ -29,7 +29,7 @@
     <style name="game_small_header_text">
         <item name="android:fontFamily">@font/font_motion_control_bold</item>
         <item name="android:textSize">24dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/medium_blue</item>
     </style>
 
 

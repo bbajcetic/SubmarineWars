@@ -14,17 +14,17 @@
     </string>
 
     <string name="help_game_objective">
-        "In Submarine Wars, you are a pilot, and it is your goal to try to destroy all of the enemy's submarines with the least amount of sonar missiles."
+        "You are a pilot and you must destroy all of the enemy's submarines with the least amount of sonar missiles."
     </string>
     <string name="help_game_controls">
-        "Select a spot in the water grid to fire a missile, which will use sonar to find the number of nearby submarines."
+        "Select a spot in the water grid to fire a missile, which will use sonar to find how many submarines are nearby."
     </string>
     <string name="help_game_tactics">
-        "When selecting a grid spot, you'll either see a destroyed submarine, or if you miss, a number indicating the number of hidden submarines"
-        "in the same row and column as this spot."
+        "When you click on a grid spot, you'll either see a destroyed submarine if you get a hit, or a number indicating how many hidden submarines"
+        "are still in the same row and column."
     </string>
     <string name="help_game_over">
-        "Game Over: Once all submarines are destroyed, your score will be the number of missiles you launched. Try to get your score as low as possible!"
+        "Game Over: Once all submarines are destroyed, your score will be the number of missiles you launched. Lowest score wins!"
     </string>
     <string name="help_objective_title">Objective</string>
     <string name="help_controls_title">Controls</string>

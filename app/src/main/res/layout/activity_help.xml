@@ -44,11 +44,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight="3">
+                android:layout_weight="10">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView
@@ -70,7 +70,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView
@@ -92,7 +92,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView
@@ -121,23 +121,27 @@
         </LinearLayout>
 
         <!-- About the developer/author content -->
-        <TextView
-            android:id="@+id/text_help_about_header"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:padding="4dp"
             android:layout_gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:text="@string/help_about_header"/>
-        <TextView
-            android:id="@+id/text_help_about_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textColorLink="@android:color/holo_green_light"/>
-
+            android:background="@color/transparent_light2_blue">
+            <TextView
+                android:id="@+id/text_help_about_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/help_about_header"/>
+            <TextView
+                android:id="@+id/text_help_about_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColorLink="@android:color/primary_text_light"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
