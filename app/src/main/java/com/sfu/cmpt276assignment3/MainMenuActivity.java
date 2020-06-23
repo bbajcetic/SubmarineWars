@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("TAG", "onCreate: MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
@@ -73,5 +75,10 @@ public class MainMenuActivity extends AppCompatActivity {
         int numSubmarines = OptionsActivity.getNumberOfSubmarines(this);
         String toastString = String.format("Board size: %dx%d\nNumber of submarines: %d", x, y, numSubmarines);
         Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onDestroy() {
+        Log.d("TAG", "onDestroy: MainActivity");
+        super.onDestroy();
     }
 }
