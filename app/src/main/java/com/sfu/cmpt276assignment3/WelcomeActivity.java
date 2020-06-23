@@ -37,52 +37,36 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        setupViews();
+        setupAnimations();
+    }
+
+    private void setupViews() {
         buttonSkip = findViewById(R.id.button_skip);
         imageSubmarine = findViewById(R.id.image_submarine);
         imageBomb = findViewById(R.id.image_bomb);
         imageTitle = findViewById(R.id.image_title);
         textDeveloper = findViewById(R.id.text_developer);
+    }
+
+    private void setupAnimations() {
         textDeveloper.setAlpha(0.0f);
         imageSubmarine.setAlpha(0.0f);
         imageBomb.setAlpha(0.0f);
         buttonSkip.setAlpha(0.0f);
-
-        startTitleAnimation();
-    }
-
-    private void startTitleAnimation() {
-        ObjectAnimator slide_in = ObjectAnimator.ofFloat(imageTitle, View.TRANSLATION_X, -2000, 0);
-        slide_in.setDuration(900);
-        slide_in.start();
-
-        title_set = new AnimatorSet();
-        title_set.setStartDelay(900);
-        ObjectAnimator a1 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_X, 1.0f, 0.9f);
-        ObjectAnimator a2 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_Y, 1.0f, 0.9f);
-        ObjectAnimator a3 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_X, 0.9f, 1.0f);
-        ObjectAnimator a4 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_Y, 0.9f, 1.0f);
-        a1.setDuration(1000);
-        a2.setDuration(1000);
-        a3.setDuration(1000);
-        a4.setDuration(1000);
-        title_set.play(a1).with(a2).before(a3);
-        title_set.play(a3).with(a4);
-        title_set.start();
+        
+        animateTitle();
 
         // bomb, developer text, skip button
         slide_set = new AnimatorSet();
         //slide_set.setDuration(900);
         slide_set.setStartDelay(200);
-        ObjectAnimator bomb_slide_in = ObjectAnimator.ofFloat(imageBomb, View.TRANSLATION_X, -2000, 0);
+        ObjectAnimator bomb_slide_in = ObjectAnimator.ofFloat(imageBomb, View.TRANSLATION_X, -2000, 0).setDuration(700);
         ObjectAnimator bomb_fade_in = ObjectAnimator.ofFloat(imageBomb, View.ALPHA, 0.8f);
-        ObjectAnimator developer_slide_in = ObjectAnimator.ofFloat(textDeveloper, View.TRANSLATION_X, -2000, 0);
+        ObjectAnimator developer_slide_in = ObjectAnimator.ofFloat(textDeveloper, View.TRANSLATION_X, -2000, 0).setDuration(1000);
         ObjectAnimator developer_fade_in = ObjectAnimator.ofFloat(textDeveloper, View.ALPHA, 1.0f);
-        ObjectAnimator skip_slide_in = ObjectAnimator.ofFloat(buttonSkip, View.TRANSLATION_X, 2000, 0);
+        ObjectAnimator skip_slide_in = ObjectAnimator.ofFloat(buttonSkip, View.TRANSLATION_X, 2000, 0).setDuration(1000);
         ObjectAnimator skip_fade_in = ObjectAnimator.ofFloat(buttonSkip, View.ALPHA, 1.0f);
-        // durations
-        bomb_slide_in.setDuration(700);
-        developer_slide_in.setDuration(1000);
-        skip_slide_in.setDuration(1000);
         // delays
         developer_fade_in.setStartDelay(200);
         developer_slide_in.setStartDelay(200);
@@ -123,22 +107,6 @@ public class WelcomeActivity extends AppCompatActivity {
         move_set.play(submarine_move6).after(submarine_move5);
         move_set.start();
 
-        title_set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) { }
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                title_set.setStartDelay(0);
-                title_set.start();
-            }
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                animation.removeAllListeners();
-            }
-            @Override
-            public void onAnimationRepeat(Animator animation) { }
-        });
-
         move_set.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) { }
@@ -155,16 +123,51 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
+    private void animateTitle() {
+        ObjectAnimator.ofFloat(imageTitle, View.TRANSLATION_X, -2000, 0)
+                .setDuration(900).start();
+
+        title_set = new AnimatorSet();
+        title_set.setStartDelay(900);
+        ObjectAnimator a1 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_X, 1.0f, 0.9f).setDuration(1000);
+        ObjectAnimator a2 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_Y, 1.0f, 0.9f).setDuration(1000);
+        ObjectAnimator a3 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_X, 0.9f, 1.0f).setDuration(1000);
+        ObjectAnimator a4 = ObjectAnimator.ofFloat(imageTitle, View.SCALE_Y, 0.9f, 1.0f).setDuration(1000);
+        title_set.play(a1).with(a2);
+        title_set.play(a3).with(a4).after(a2);
+        title_set.start();
+        title_set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) { }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                title_set.setStartDelay(0);
+                title_set.start();
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                animation.removeAllListeners();
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) { }
+        });
+    }
+
     public void openMainMenu() {
         Intent mainMenuIntent = MainMenuActivity.makeIntent(this);
         startActivity(mainMenuIntent);
         finish();
     }
     public void skipAnimation(View view) {
+        openMainMenu();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         title_set.cancel();
         slide_set.cancel();
         move_set.cancel();
-        openMainMenu();
     }
 
     @Override
