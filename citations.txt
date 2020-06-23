@@ -19,3 +19,6 @@ Citations to include in the game:
     -https://opengameart.org/content/rpg-gui-selection-arrow
 -submarine:
     -https://opengameart.org/content/battleships
+-mission successful font:
+    -https://www.1001fonts.com/olivers-barney-font.html
+

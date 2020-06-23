@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
@@ -26,6 +27,8 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
+    FrameLayout gameOverBox;
+    FrameLayout gamePauseBox;
     Button[][] buttons;
 
     /* Data Structures for game computation */
@@ -45,9 +48,11 @@ public class GameActivity extends AppCompatActivity {
     int missiles_fired = 0;
     int submarines_destroyed = 0;
 
+    boolean isPaused = false;
+
     TextView missileInfo;
     TextView subInfo;
-
+    LinearLayout grid;
     Random random;
 
     @Override
@@ -58,6 +63,8 @@ public class GameActivity extends AppCompatActivity {
         numSubmarines = OptionsActivity.getNumberOfSubmarines(this);
         numCols = OptionsActivity.getBoardSizeX(this);
         numRows = OptionsActivity.getBoardSizeY(this);
+        gameOverBox = findViewById(R.id.game_over_box);
+        gamePauseBox = findViewById(R.id.game_pause_box);
 
         setupSubmarines();
         setupInfoBox();
@@ -113,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
     }
     private void setupGrid() {
         buttons = new Button[numRows][numCols];
-        LinearLayout grid = findViewById(R.id.game_grid);
+        grid = findViewById(R.id.game_grid);
         for (int row = 0; row < numRows; row++) {
             LinearLayout tableRow = new LinearLayout(this);
             tableRow.setLayoutParams(new LinearLayout.LayoutParams(
@@ -149,8 +156,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col) {
-        Toast.makeText(this, String.format("Button at %d, %d clicked", col, row), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.format("Button at %d, %d clicked", col, row), Toast.LENGTH_SHORT).show();
 
+        if (isGameOver() || isPaused) {
+            return;
+        }
         if (!isClicked[row][col]) {
             isClicked[row][col] = true;
             missiles_fired++;
@@ -166,6 +176,14 @@ public class GameActivity extends AppCompatActivity {
         }
 
         updateInfoBox();
+        if (isGameOver()) {
+            gameOverBox.setVisibility(View.VISIBLE);
+            View scrim = findViewById(R.id.scrim);
+            scrim.setVisibility(View.VISIBLE);
+        }
+    }
+    private boolean isGameOver() {
+        return submarines_destroyed == numSubmarines;
     }
     private void displayHiddenNumber(int row, int col) {
         Button button = buttons[row][col];
@@ -187,7 +205,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void setBackground(int row, int col, int drawable_resource) {
         Button button = buttons[row][col];
-        Log.d("TAG", "" + row + " " + col);
+        //Log.d("TAG", "" + row + " " + col);
 
         // Lock buttons
         lockButtonSizes();
@@ -221,12 +239,34 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void saveGame(View view) {
+    }
+
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, GameActivity.class);
         return intent;
     }
 
-    public void clickBackArrow(View view) {
+    public void goHome(View view) {
         finish();
     }
+    public void clickBackArrow(View view) {
+        onBackPressed();
+    }
+    @Override
+    public void onBackPressed() {
+        if (!isGameOver() && !isPaused) {
+            pauseScreen();
+        }
+    }
+    private void pauseScreen() {
+        isPaused = true;
+        gamePauseBox.setVisibility(View.VISIBLE);
+        View scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.VISIBLE);
+    }
+    public void leaveScreen() {
+        finish();
+    }
+
 }
