@@ -32,4 +32,12 @@
 
     <string name="game_missile_info">"Missiles Fired: "</string>
     <string name="game_submarines_info">"Submarines Destroyed: "</string>
+
+    <string name="game_over_score">Score: %d missiles fired</string>
+    <string name="game_over_high_score">
+        "High Score: %d missiles fired\n"
+    </string>
+    <string name="game_over_high_score_info">
+        "(%dx%d/%d submarines)"
+    </string>
 </resources>

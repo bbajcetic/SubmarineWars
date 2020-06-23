@@ -15,11 +15,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class OptionsActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
-    private static final String SETTINGS_FILE = "settings_file";
+    public static final String SETTINGS_FILE = "settings_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,26 @@ public class OptionsActivity extends AppCompatActivity {
         return prefs.getInt("board_y", defaultBoardSizeY);
     }
 
+    static public void setHighScore(Context context, int score) {
+        SharedPreferences prefs = context.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        int numSubmarines = getNumberOfSubmarines(context);
+        int numRows = getBoardSizeY(context);
+        int numCols = getBoardSizeX(context);
+        String keyString = String.format("high_score_%d_%d_%d", numSubmarines, numRows, numCols);
+        editor.putInt(keyString, score);
+        editor.apply();
+    }
+
+    static public int getHighScore(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
+        int numSubmarines = getNumberOfSubmarines(context);
+        int numRows = getBoardSizeY(context);
+        int numCols = getBoardSizeX(context);
+        String keyString = String.format("high_score_%d_%d_%d", numSubmarines, numRows, numCols);
+        return prefs.getInt(keyString, -1);
+    }
+
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, OptionsActivity.class);
         return intent;
@@ -140,5 +161,23 @@ public class OptionsActivity extends AppCompatActivity {
         backArrow.setImageResource(R.drawable.arrow_animation);
         AnimationDrawable moveAnimation = (AnimationDrawable)backArrow.getDrawable();
         moveAnimation.start();
+    }
+
+    public void resetHighScores(View view) {
+        int[] number_of_submarines_options = this.getResources().getIntArray(R.array.number_of_submarines_options);
+        int[] board_size_options_x = this.getResources().getIntArray(R.array.board_size_options_x);
+        int[] board_size_options_y = this.getResources().getIntArray(R.array.board_size_options_y);
+        SharedPreferences prefs = this.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        for (int i = 0; i < number_of_submarines_options.length; i++) {
+            for (int j = 0; j < board_size_options_x.length; j++) {
+                String keyString = String.format("high_score_%d_%d_%d", number_of_submarines_options[i],
+                        board_size_options_y[j], board_size_options_x[j]);
+                editor.remove(keyString);
+            }
+        }
+        editor.apply();
+        Toast.makeText(this, "High Scores for all configurations are reset", Toast.LENGTH_SHORT).show();
     }
 }

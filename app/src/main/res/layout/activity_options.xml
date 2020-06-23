@@ -84,5 +84,16 @@
                     style="@style/game_small_header_text"/>
             </RadioGroup>
         </LinearLayout>
+        <Button
+            android:id="@+id/reset_high_score"
+            android:onClick="resetHighScores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:text="Reset high scores"
+            style="@style/game_button_text"
+            android:background="@drawable/menu_button"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

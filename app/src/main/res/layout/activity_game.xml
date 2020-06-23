@@ -110,11 +110,28 @@
                         android:textColor="@android:color/holo_green_dark"
                         style="@style/game_small_header_text"/>
                     <TextView
+                        android:id="@+id/text_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="Score: 46 missiles fired"
+                        style="@style/game_regular_text"/>
+                    <TextView
+                        android:id="@+id/text_high_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:textSize="20dp"
+                        android:textColor="@android:color/holo_red_light"
+                        style="@style/game_regular_text"/>
+                    <TextView
+                        android:id="@+id/text_high_score_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-16dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@android:color/holo_red_dark"
                         style="@style/game_regular_text"/>
                     <Button
                         android:onClick="goHome"
@@ -133,7 +150,8 @@
                 android:id="@+id/game_pause_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -143,6 +161,16 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:onClick="continueGame"
+                        android:text="x"
+                        android:layout_marginVertical="4dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:background="@drawable/menu_button"
+                        style="@style/game_button_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -150,7 +178,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:text="Game Paused"
+                            android:textSize="30dp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@android:color/white"
                             style="@style/game_button_text"/>
@@ -158,6 +188,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
                             android:text="Do you want to exit the game?"
                             android:textColor="@android:color/holo_green_dark"
                             style="@style/game_small_header_text"/>

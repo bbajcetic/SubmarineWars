@@ -5,6 +5,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
+
+import static com.sfu.cmpt276assignment3.OptionsActivity.SETTINGS_FILE;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -177,11 +180,31 @@ public class GameActivity extends AppCompatActivity {
 
         updateInfoBox();
         if (isGameOver()) {
-            gameOverBox.setVisibility(View.VISIBLE);
-            View scrim = findViewById(R.id.scrim);
-            scrim.setVisibility(View.VISIBLE);
+            showGameOverBox();
         }
     }
+
+    private void showGameOverBox() {
+        gameOverBox.setVisibility(View.VISIBLE);
+        View scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.VISIBLE);
+
+        // get high score
+        int high_score = OptionsActivity.getHighScore(this);
+        if (missiles_fired < high_score || high_score == -1) {
+            OptionsActivity.setHighScore(this, missiles_fired);
+            high_score = missiles_fired;
+        }
+
+        TextView textScore = findViewById(R.id.text_score);
+        TextView textHighScore = findViewById(R.id.text_high_score);
+        TextView textHighScoreInfo = findViewById(R.id.text_high_score_info);
+        textScore.setText(getResources().getString(R.string.game_over_score, missiles_fired));
+        textHighScore.setText(getResources().getString(R.string.game_over_high_score, high_score));
+        textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
+                numCols, numRows, numSubmarines));
+    }
+
     private boolean isGameOver() {
         return submarines_destroyed == numSubmarines;
     }
@@ -267,6 +290,13 @@ public class GameActivity extends AppCompatActivity {
     }
     public void leaveScreen() {
         finish();
+    }
+
+    public void continueGame(View view) {
+        isPaused = false;
+        gamePauseBox.setVisibility(View.GONE);
+        View scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.GONE);
     }
 
 }
