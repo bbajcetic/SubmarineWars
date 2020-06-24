@@ -86,7 +86,6 @@
         </LinearLayout>
         <Button
             android:id="@+id/reset_high_score"
-            android:onClick="resetData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -96,4 +95,75 @@
             style="@style/game_button_text"
             android:background="@drawable/menu_button"/>
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:id="@+id/scrim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/scrim"
+                android:visibility="gone"/>
+            <FrameLayout
+                android:id="@+id/options_confirm_reset"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                android:background="@drawable/game_success_box">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="32dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/options_confirm_msg"
+                            android:textSize="30sp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@android:color/white"
+                            style="@style/game_button_text"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="8dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/confirm_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="8dp"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="@string/options_reset_button_yes"
+                                style="@style/game_button_text"
+                                android:background="@drawable/menu_button"/>
+                            <Button
+                                android:id="@+id/confirm_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:paddingHorizontal="8dp"
+                                android:text="@string/confirm_reset_button_no"
+                                style="@style/game_button_text"
+                                android:background="@drawable/menu_button"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

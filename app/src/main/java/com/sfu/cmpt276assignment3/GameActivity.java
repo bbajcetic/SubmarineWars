@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
     int numRows;
     int numSubmarines;
 
-    int missiles_fired = 0;
+    int missiles_wasted = 0;
     int submarines_destroyed = 0;
 
     boolean isPaused = false;
@@ -124,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
         updateInfoBox();
     }
     private void updateInfoBox() {
-        String missileInfoString = getResources().getString(R.string.game_missile_info, missiles_fired);
+        String missileInfoString = getResources().getString(R.string.game_missile_info, missiles_wasted);
         String subInfoString = getResources().getString(R.string.game_submarines_info,
                 submarines_destroyed, numSubmarines);
         missileInfo.setText(missileInfoString);
@@ -182,11 +182,11 @@ public class GameActivity extends AppCompatActivity {
         }
         if (isClicked[row][col] && !isDoubleClicked[row][col] && isSubmarine[row][col]) {
             isDoubleClicked[row][col] = true;
+            missiles_wasted++;
             displayHiddenNumber(row, col);
         }
         if (!isClicked[row][col]) {
             isClicked[row][col] = true;
-            missiles_fired++;
             if(isSubmarine[row][col]) {
                 submarines_destroyed++;
                 setBackground(row, col, R.drawable.grid_element_destroyed_submarine);
@@ -194,6 +194,7 @@ public class GameActivity extends AppCompatActivity {
                 submarinesInCol[col]--;
                 updateHiddenNumbers();
             } else {
+                missiles_wasted++;
                 displayHiddenNumber(row, col);
             }
         }
@@ -212,15 +213,15 @@ public class GameActivity extends AppCompatActivity {
         ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
         // get high score
         int high_score = gameData.getHighScore();
-        if (missiles_fired < high_score || high_score == -1) {
-            gameData.setHighScore(missiles_fired);
-            high_score = missiles_fired;
+        if (missiles_wasted < high_score || high_score == -1) {
+            gameData.setHighScore(missiles_wasted);
+            high_score = missiles_wasted;
         }
 
         TextView textScore = findViewById(R.id.text_score);
         TextView textHighScore = findViewById(R.id.text_high_score);
         TextView textHighScoreInfo = findViewById(R.id.text_high_score_info);
-        textScore.setText(getResources().getString(R.string.game_over_score, missiles_fired));
+        textScore.setText(getResources().getString(R.string.game_over_score, missiles_wasted));
         textHighScore.setText(getResources().getString(R.string.game_over_high_score, high_score));
         textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
                 numRows, numCols, numSubmarines));

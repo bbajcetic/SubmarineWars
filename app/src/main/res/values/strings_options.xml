@@ -5,4 +5,7 @@
     <string name="options_number_of_submarines">Number of Submarines:</string>
     <string name="options_reset_button">Reset high scores/games played</string>
     <string name="options_reset_message">Number of games played and high scores have been reset</string>
+    <string name="options_confirm_msg">Would you like to reset all highscores/games played?</string>
+    <string name="options_reset_button_yes">Yes</string>
+    <string name="confirm_reset_button_no">No</string>
 </resources>

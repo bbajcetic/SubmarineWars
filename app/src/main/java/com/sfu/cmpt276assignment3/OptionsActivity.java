@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -22,11 +23,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
 
-public class OptionsActivity extends AppCompatActivity {
+public class OptionsActivity extends AppCompatActivity implements View.OnClickListener {
 
     GameData gameData;
     MusicManager musicManager;
     boolean keepPlaying = false;
+
+    boolean isConfirming = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,9 @@ public class OptionsActivity extends AppCompatActivity {
         musicManager.startMusic(MENU_MUSIC);
         setupBackArrow();
         createRadioButtons();
+        findViewById(R.id.reset_high_score).setOnClickListener(this);
+        findViewById(R.id.confirm_yes).setOnClickListener(this);
+        findViewById(R.id.confirm_no).setOnClickListener(this);
     }
 
     @Override
@@ -77,9 +83,10 @@ public class OptionsActivity extends AppCompatActivity {
         moveAnimation.start();
     }
 
-    public void resetData(View view) {
+    public void resetData() {
+        closeConfirmBox();
         gameData.resetData(this);
-        Snackbar snackbar = Snackbar.make(view, R.string.options_reset_message, BaseTransientBottomBar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), R.string.options_reset_message, BaseTransientBottomBar.LENGTH_SHORT);
         snackbar.show();
     }
 
@@ -107,7 +114,9 @@ public class OptionsActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gameData.setBoardSize(numRows, numCols);
+                    if (!isConfirming) {
+                        gameData.setBoardSize(numRows, numCols);
+                    }
                 }
             });
             group.addView(button);
@@ -130,7 +139,9 @@ public class OptionsActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gameData.setNumSubmarines(numSubmarines);
+                    if (!isConfirming) {
+                        gameData.setNumSubmarines(numSubmarines);
+                    }
                 }
             });
             group.addView(button);
@@ -138,6 +149,54 @@ public class OptionsActivity extends AppCompatActivity {
             if (numSubmarines == gameData.getNumSubmarines()) {
                 button.setChecked(true);
             }
+        }
+    }
+    private void openConfirmBox() {
+        isConfirming = true;
+        disableRadioButtons();
+        FrameLayout confirmBox = findViewById(R.id.options_confirm_reset);
+        confirmBox.setVisibility(View.VISIBLE);
+        View scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.VISIBLE);
+    }
+    public void closeConfirmBox() {
+        isConfirming = false;
+        enableRadioButtons();
+        FrameLayout confirmBox = findViewById(R.id.options_confirm_reset);
+        confirmBox.setVisibility(View.GONE);
+        View scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.GONE);
+    }
+
+    public void setRadioButtons(boolean enable) {
+        RadioGroup boardSizeGroup = findViewById(R.id.radio_group_board_size);
+        RadioGroup numSubmarinesGroup = findViewById(R.id.radio_group_number_of_submarines);
+        for(int i = 0; i < boardSizeGroup.getChildCount(); i++){
+            boardSizeGroup.getChildAt(i).setEnabled(enable);
+        }
+        for(int i = 0; i < numSubmarinesGroup.getChildCount(); i++){
+            numSubmarinesGroup.getChildAt(i).setEnabled(enable);
+        }
+    }
+    public void enableRadioButtons() {
+        setRadioButtons(true);
+    }
+    public void disableRadioButtons() {
+        setRadioButtons(false);
+    }
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch(id) {
+            case R.id.reset_high_score:
+                openConfirmBox();
+                break;
+            case R.id.confirm_yes:
+                resetData();
+                break;
+            case R.id.confirm_no:
+                closeConfirmBox();
+                break;
         }
     }
 }
