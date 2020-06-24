@@ -98,7 +98,6 @@ public class OptionsActivity extends AppCompatActivity {
     private String getNumberOfSubmarinesString(int numSubmarines) {
         return String.format("%d subs", numSubmarines);
     }
-
     private void saveBoardSize(int boardX, int boardY) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("board_x", boardX);
@@ -108,6 +107,18 @@ public class OptionsActivity extends AppCompatActivity {
     private void saveNumberOfSubmarines(int numSubmarines) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("num_submarines", numSubmarines);
+        editor.apply();
+    }
+
+    public static int getGamesPlayed(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
+        return prefs.getInt("games_played", 0);
+    }
+    public static void incrementGamesPlayed(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        int gamesPlayed = getGamesPlayed(context);
+        editor.putInt("games_played", gamesPlayed + 1);
         editor.apply();
     }
 
@@ -177,7 +188,8 @@ public class OptionsActivity extends AppCompatActivity {
                 editor.remove(keyString);
             }
         }
+        editor.remove("games_played");
         editor.apply();
-        Toast.makeText(this, "High Scores for all configurations are reset", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Number of games played and high scores for all configurations are reset", Toast.LENGTH_SHORT).show();
     }
 }

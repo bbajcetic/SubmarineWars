@@ -76,6 +76,14 @@ public class GameActivity extends AppCompatActivity {
         setupInfoBox();
         setupGrid();
         setupBackArrow();
+        displayGamesPlayed();
+    }
+
+    private void displayGamesPlayed() {
+        TextView textGamesPlayed = findViewById(R.id.text_games_played);
+        int gamesPlayed = OptionsActivity.getGamesPlayed(this);
+        String games_played_string = getResources().getString(R.string.info_games_played, gamesPlayed);
+        textGamesPlayed.setText(games_played_string);
     }
 
     private void setupSubmarines() {
@@ -204,7 +212,6 @@ public class GameActivity extends AppCompatActivity {
         scrim.setVisibility(View.VISIBLE);
 
         ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
-
         // get high score
         int high_score = OptionsActivity.getHighScore(this);
         if (missiles_fired < high_score || high_score == -1) {
@@ -219,6 +226,8 @@ public class GameActivity extends AppCompatActivity {
         textHighScore.setText(getResources().getString(R.string.game_over_high_score, high_score));
         textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
                 numCols, numRows, numSubmarines));
+
+        OptionsActivity.incrementGamesPlayed(this);
     }
 
     private boolean isGameOver() {
