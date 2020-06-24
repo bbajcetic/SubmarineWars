@@ -227,7 +227,7 @@ public class GameActivity extends AppCompatActivity {
         textScore.setText(getResources().getString(R.string.game_over_score, missiles_fired));
         textHighScore.setText(getResources().getString(R.string.game_over_high_score, high_score));
         textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
-                numCols, numRows, numSubmarines));
+                numRows, numCols, numSubmarines));
 
         gameData.setNumGamesPlayed(gameData.getNumGamesPlayed() + 1);
     }

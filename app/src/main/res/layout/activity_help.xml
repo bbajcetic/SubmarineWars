@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingVertical="16dp"
-        android:paddingHorizontal="64dp">
+        android:paddingHorizontal="32dp">
         <TextView
             android:id="@+id/text_help_title"
             android:layout_width="wrap_content"
@@ -44,11 +44,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight="10">
+                android:layout_weight="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="0.35"
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView
@@ -64,13 +64,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/help_game_objective"
-                        android:textSize="16dp"
                         style="@style/game_regular_text"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="0.65"
                     android:orientation="vertical"
                     android:padding="12dp">
                     <TextView
@@ -86,29 +85,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/help_game_controls"
-                        android:textSize="16dp"
-                        style="@style/game_regular_text"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/text_help_tactics_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:text="@string/help_tactics_title"
-                        style="@style/game_small_header_text"/>
-                    <TextView
-                        android:id="@+id/text_help_game_tactics"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/help_game_tactics"
-                        android:textSize="16dp"
                         style="@style/game_regular_text"/>
                 </LinearLayout>
             </LinearLayout>
@@ -116,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/help_game_over"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 style="@style/game_regular_text"/>
         </LinearLayout>
 

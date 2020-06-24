@@ -14,27 +14,26 @@
     </string>
 
     <string name="help_game_objective">
-        "You are a pilot and you must destroy all of the enemy's submarines with the least amount of sonar missiles."
+        "You are a pilot and you must destroy all of the enemy's hidden submarines with the least amount of sonar missiles wasted. Every time you don't hit a submarine, that counts as"
+        "one missile wasted. Use them wisely"
     </string>
     <string name="help_game_controls">
-        "Select a spot in the water grid to fire a missile, which will use sonar to find how many submarines are nearby."
-    </string>
-    <string name="help_game_tactics">
-        "When you click on a grid spot, you'll either see a destroyed submarine if you get a hit, or a number indicating how many hidden submarines"
-        "are still in the same row and column."
+        "Select a spot in the water grid to fire a missile there. If you hit a submarine, you will see the destroyed submarine. If you miss, the missile will be able to send out a sonar"
+        "pulse and the grid spot you clicked will now display a number showing you how many submarines are still hiding within the same row and column.\n"
+        "Click on a destroyed submarine if you want to fire a missile again in that spot for the sole purpose of using the sonar to display a number on that square."
     </string>
     <string name="help_game_over">
-        "Game Over: Once all submarines are destroyed, your score will be the number of missiles you launched. Lowest score wins!"
+        "Game Over: Once all submarines are destroyed, your score will be the number of missiles you wasted. Don't waste many!"
     </string>
     <string name="help_objective_title">Objective</string>
     <string name="help_controls_title">Controls</string>
     <string name="help_tactics_title">Tactics</string>
 
-    <string name="game_missile_info">"Missiles Fired: "</string>
+    <string name="game_missile_info">"Missiles Wasted: "</string>
     <string name="game_submarines_info">"Submarines Destroyed: "</string>
 
-    <string name="game_over_score">Score: %d missiles fired</string>
-    <string name="game_over_high_score">"High Score: %d missiles fired\n"</string>
+    <string name="game_over_score">Score: %d missiles wasted</string>
+    <string name="game_over_high_score">"Best Score: %d missiles wasted\n"</string>
     <string name="game_over_high_score_info">"(%dx%d/%d submarines)"</string>
 
     <string name="info_games_played">%d games played</string>

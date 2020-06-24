@@ -18,7 +18,7 @@
 
     <style name="game_title_text">
         <item name="android:fontFamily">@font/font_military_progress</item>
-        <item name="android:textSize">36dp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textColor">@android:color/white </item>
     </style>
     <style name="game_header_text">
@@ -28,32 +28,32 @@
 
     <style name="game_small_header_text">
         <item name="android:fontFamily">@font/font_motion_control_bold</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/medium_blue</item>
     </style>
 
 
     <style name="game_screen_title_text">
         <item name="android:fontFamily">@font/font_laconic_bold</item>
-        <item name="android:textSize">36dp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="game_button_text">
         <item name="android:fontFamily">@font/font_laconic_bold</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="game_regular_text">
         <item name="android:fontFamily">@font/font_laconic_bold</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="mission_success_text">
         <item name="android:fontFamily">@font/font_olivers_barney</item>
-        <item name="android:textSize">36dp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textColor">@android:color/holo_green_light</item>
     </style>
 

@@ -19,6 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
+        android:id="@+id/info_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -49,11 +50,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="96dp"
         android:text="@string/game_title"
-        android:textSize="36dp"
+        android:textSize="32dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/back_arrow"
+        app:layout_constraintRight_toLeftOf="@+id/info_layout"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/game_title_text"/>
     <LinearLayout
