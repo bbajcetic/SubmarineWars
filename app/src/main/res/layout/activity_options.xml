@@ -86,7 +86,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/reset_high_score"
-            android:onClick="resetHighScores"
+            android:onClick="resetData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

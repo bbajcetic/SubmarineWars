@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="default_number_of_submarines">6</integer>
-    <integer-array name="number_of_submarines_options">
+    <integer name="default_num_submarines">6</integer>
+    <integer-array name="num_submarines_options">
         <item>6</item>
         <item>10</item>
         <item>15</item>
         <item>20</item>
     </integer-array>
 
-    <integer name="default_board_size_y">4</integer>
-    <integer-array name="board_size_options_y">
+    <integer name="default_num_rows">4</integer>
+    <integer-array name="num_rows_options">
         <item>4</item>
         <item>5</item>
         <item>6</item>
     </integer-array>
 
-    <integer name="default_board_size_x">6</integer>
-    <integer-array name="board_size_options_x">
+    <integer name="default_num_cols">6</integer>
+    <integer-array name="num_cols_options">
         <item>6</item>
         <item>10</item>
         <item>15</item>

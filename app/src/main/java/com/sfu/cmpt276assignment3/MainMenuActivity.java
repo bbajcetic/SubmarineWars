@@ -8,7 +8,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,10 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
 
 public class MainMenuActivity extends AppCompatActivity {
-    SoundManager soundManager;
+    MusicManager musicManager;
     boolean keepPlaying = false;
 
     Button buttonPlay;
@@ -33,8 +32,8 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        soundManager = SoundManager.getInstance(getApplicationContext());
-        soundManager.startMusic(MENU_MUSIC);
+        musicManager = MusicManager.getInstance(getApplicationContext());
+        musicManager.startMusic(MENU_MUSIC);
 
         displayOptions();
         setupButtons();
@@ -91,10 +90,11 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void displayOptions() {
-        int x = OptionsActivity.getBoardSizeX(this);
-        int y = OptionsActivity.getBoardSizeY(this);
-        int numSubmarines = OptionsActivity.getNumberOfSubmarines(this);
-        String toastString = String.format("Board size: %dx%d\nNumber of submarines: %d", x, y, numSubmarines);
+        GameData gameData = GameData.getInstance(this);
+        int numCols = gameData.getNumCols();
+        int numRows = gameData.getNumRows();
+        int numSubmarines = gameData.getNumSubmarines();
+        String toastString = String.format("Board size: %dx%d\nNumber of submarines: %d", numRows, numCols, numSubmarines);
         Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
     }
 
@@ -149,7 +149,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         title_set.cancel();
-        soundManager.pauseMusic(keepPlaying);
+        musicManager.pauseMusic(keepPlaying);
         keepPlaying = false;
     }
     @Override
@@ -157,7 +157,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onResume();
         animateTitle();
         animateButtons();
-        soundManager.resumeMusic(MENU_MUSIC);
+        musicManager.resumeMusic(MENU_MUSIC);
     }
     @Override
     protected void onDestroy() {

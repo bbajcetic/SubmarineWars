@@ -6,16 +6,13 @@ import androidx.core.content.res.ResourcesCompat;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -23,15 +20,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
-import static com.sfu.cmpt276assignment3.OptionsActivity.SETTINGS_FILE;
-import static com.sfu.cmpt276assignment3.SoundManager.GAME_MUSIC;
+import static com.sfu.cmpt276assignment3.MusicManager.GAME_MUSIC;
 
 public class GameActivity extends AppCompatActivity {
-    SoundManager soundManager;
+    GameData gameData;
+    MusicManager musicManager;
     boolean keepPlaying = false;
 
     FrameLayout gameOverBox;
@@ -69,14 +65,15 @@ public class GameActivity extends AppCompatActivity {
         random = new Random();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        numSubmarines = OptionsActivity.getNumberOfSubmarines(this);
-        numCols = OptionsActivity.getBoardSizeX(this);
-        numRows = OptionsActivity.getBoardSizeY(this);
+        gameData = GameData.getInstance(this);
+        numSubmarines = gameData.getNumSubmarines();
+        numRows = gameData.getNumRows();
+        numCols = gameData.getNumCols();
         gameOverBox = findViewById(R.id.game_over_box);
         gamePauseBox = findViewById(R.id.game_pause_box);
 
-        soundManager = SoundManager.getInstance(getApplicationContext());
-        soundManager.startMusic(GAME_MUSIC);
+        musicManager = MusicManager.getInstance(getApplicationContext());
+        musicManager.startMusic(GAME_MUSIC);
         setupSubmarines();
         setupInfoBox();
         setupGrid();
@@ -86,7 +83,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void displayGamesPlayed() {
         TextView textGamesPlayed = findViewById(R.id.text_games_played);
-        int gamesPlayed = OptionsActivity.getGamesPlayed(this);
+        int gamesPlayed = gameData.getNumGamesPlayed();
         String games_played_string = getResources().getString(R.string.info_games_played, gamesPlayed);
         textGamesPlayed.setText(games_played_string);
     }
@@ -218,9 +215,9 @@ public class GameActivity extends AppCompatActivity {
 
         ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
         // get high score
-        int high_score = OptionsActivity.getHighScore(this);
+        int high_score = gameData.getHighScore();
         if (missiles_fired < high_score || high_score == -1) {
-            OptionsActivity.setHighScore(this, missiles_fired);
+            gameData.setHighScore(missiles_fired);
             high_score = missiles_fired;
         }
 
@@ -232,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
         textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
                 numCols, numRows, numSubmarines));
 
-        OptionsActivity.incrementGamesPlayed(this);
+        gameData.setNumGamesPlayed(gameData.getNumGamesPlayed() + 1);
     }
 
     private boolean isGameOver() {
@@ -275,11 +272,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void lockButtonSizes() {
-        int x = OptionsActivity.getBoardSizeX(this);
-        int y = OptionsActivity.getBoardSizeY(this);
+        int numCols = gameData.getNumCols();
+        int numRows = gameData.getNumRows();
 
-        for (int row = 0; row < y; row++) {
-            for (int col = 0; col < x; col++) {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
                 Button button = buttons[row][col];
                 button.setPadding(0, 0, 0, 0);
                 int width = button.getWidth();
@@ -333,13 +330,13 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        soundManager.pauseMusic(keepPlaying);
+        musicManager.pauseMusic(keepPlaying);
         keepPlaying = false;
     }
     @Override
     protected void onResume() {
         super.onResume();
-        soundManager.startMusic(GAME_MUSIC);
+        musicManager.startMusic(GAME_MUSIC);
     }
 
 }

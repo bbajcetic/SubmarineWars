@@ -1,12 +1,9 @@
 package com.sfu.cmpt276assignment3;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
-import android.util.Log;
 
-public class SoundManager {
+public class MusicManager {
     public static int MENU_MUSIC = R.raw.menu_music;
     public static int GAME_MUSIC = R.raw.game_music;
 
@@ -16,16 +13,16 @@ public class SoundManager {
     boolean isPlaying;
 
     // Singleton Sound Manager
-    private static SoundManager instance;
-    public static SoundManager getInstance(Context context) {
+    private static MusicManager instance;
+    public static MusicManager getInstance(Context context) {
         if (instance == null) {
-            instance = new SoundManager(context);
+            instance = new MusicManager(context);
         }
         return instance;
     }
 
     // regular class code
-    public SoundManager(Context context) {
+    private MusicManager(Context context) {
         this.context = context;
         isPlaying = false;
     }

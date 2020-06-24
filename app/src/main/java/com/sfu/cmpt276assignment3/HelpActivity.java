@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,15 +14,13 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
 
 public class HelpActivity extends AppCompatActivity {
 
-    SoundManager soundManager;
+    MusicManager musicManager;
     boolean keepPlaying = false;
 
     @Override
@@ -31,11 +28,23 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        soundManager = SoundManager.getInstance(getApplicationContext());
-        soundManager.startMusic(MENU_MUSIC);
+        musicManager = MusicManager.getInstance(getApplicationContext());
+        musicManager.startMusic(MENU_MUSIC);
 
         setupWebpageLink();
         setupBackArrow();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        musicManager.pauseMusic(keepPlaying);
+        keepPlaying = false;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        musicManager.resumeMusic(MENU_MUSIC);
     }
 
     private void setupBackArrow() {
@@ -73,17 +82,5 @@ public class HelpActivity extends AppCompatActivity {
     public void clickBackArrow(View view) {
         keepPlaying = true;
         finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        soundManager.pauseMusic(keepPlaying);
-        keepPlaying = false;
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        soundManager.resumeMusic(MENU_MUSIC);
     }
 }
