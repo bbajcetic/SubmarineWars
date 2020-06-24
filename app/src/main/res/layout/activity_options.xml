@@ -30,7 +30,7 @@
             android:id="@+id/text_options_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Options"
+            android:text="@string/options_title"
             android:layout_gravity="center_horizontal"
             style="@style/game_screen_title_text"/>
 
@@ -55,7 +55,7 @@
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:text="Board Size:"
+                    android:text="@string/options_board_size"
                     style="@style/game_small_header_text"/>
             </RadioGroup>
         </LinearLayout>
@@ -80,7 +80,7 @@
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:text="Number of Submarines:"
+                    android:text="@string/options_number_of_submarines"
                     style="@style/game_small_header_text"/>
             </RadioGroup>
         </LinearLayout>
@@ -92,7 +92,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:text="Reset high scores/games played"
+            android:text="@string/options_reset_button"
             style="@style/game_button_text"
             android:background="@drawable/menu_button"/>
     </LinearLayout>

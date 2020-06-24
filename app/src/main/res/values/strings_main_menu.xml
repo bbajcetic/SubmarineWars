@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_menu_play_button">PLAY</string>
+    <string name="main_menu_options_button">OPTIONS</string>
+    <string name="main_menu_help_button">HELP</string>
+</resources>

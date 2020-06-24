@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="options_title">Options</string>
+    <string name="options_board_size">Board Size:</string>
+    <string name="options_number_of_submarines">Number of Submarines:</string>
+    <string name="options_reset_button">Reset high scores/games played</string>
+    <string name="options_reset_message">Number of games played and high scores have been reset</string>
+</resources>

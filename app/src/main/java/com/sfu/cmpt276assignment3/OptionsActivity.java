@@ -79,7 +79,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     public void resetData(View view) {
         gameData.resetData(this);
-        Snackbar snackbar = Snackbar.make(view, "Number of games played and high scores have been reset", BaseTransientBottomBar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(view, R.string.options_reset_message, BaseTransientBottomBar.LENGTH_SHORT);
         snackbar.show();
     }
 

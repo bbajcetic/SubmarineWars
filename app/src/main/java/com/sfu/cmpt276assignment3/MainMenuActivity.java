@@ -94,8 +94,8 @@ public class MainMenuActivity extends AppCompatActivity {
         int numCols = gameData.getNumCols();
         int numRows = gameData.getNumRows();
         int numSubmarines = gameData.getNumSubmarines();
-        String toastString = String.format("Board size: %dx%d\nNumber of submarines: %d", numRows, numCols, numSubmarines);
-        Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
+        //String toastString = String.format("Board size: %dx%d\nNumber of submarines: %d", numRows, numCols, numSubmarines);
+        //Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
     }
 
     private void animateButtons() {

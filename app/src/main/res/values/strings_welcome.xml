@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_skip">Skip</string>
+    <string name="welcome_developer_info">Developer: Branko Bajcetic</string>
+</resources>

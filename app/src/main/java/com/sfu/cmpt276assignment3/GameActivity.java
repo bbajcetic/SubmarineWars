@@ -65,17 +65,16 @@ public class GameActivity extends AppCompatActivity {
         random = new Random();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // get game configuration info
         gameData = GameData.getInstance(this);
         numSubmarines = gameData.getNumSubmarines();
         numRows = gameData.getNumRows();
         numCols = gameData.getNumCols();
-        gameOverBox = findViewById(R.id.game_over_box);
-        gamePauseBox = findViewById(R.id.game_pause_box);
 
         musicManager = MusicManager.getInstance(getApplicationContext());
         musicManager.startMusic(GAME_MUSIC);
         setupSubmarines();
-        setupInfoBox();
+        setupViews();
         setupGrid();
         setupBackArrow();
         displayGamesPlayed();
@@ -102,7 +101,6 @@ public class GameActivity extends AppCompatActivity {
                 isDoubleClicked[row][col] = false;
             }
         }
-
         // generate numSubmarines randomly in the boolean multi-array isSubmarine
         int submarinesLeft = numSubmarines;
         while (submarinesLeft > 0) {
@@ -118,16 +116,19 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void setupInfoBox() {
+    private void setupViews() {
+        gameOverBox = findViewById(R.id.game_over_box);
+        gamePauseBox = findViewById(R.id.game_pause_box);
         missileInfo = findViewById(R.id.text_missiles_information);
         subInfo = findViewById(R.id.text_submarines_information);
         updateInfoBox();
     }
     private void updateInfoBox() {
-        String missileInfoString = getResources().getString(R.string.game_missile_info);
-        String subInfoString = getResources().getString(R.string.game_submarines_info);
-        missileInfo.setText(missileInfoString + Integer.toString(missiles_fired));
-        subInfo.setText(subInfoString + String.format("%d/%d", submarines_destroyed, numSubmarines));
+        String missileInfoString = getResources().getString(R.string.game_missile_info, missiles_fired);
+        String subInfoString = getResources().getString(R.string.game_submarines_info,
+                submarines_destroyed, numSubmarines);
+        missileInfo.setText(missileInfoString);
+        subInfo.setText(subInfoString);
     }
 
     private void setupBackArrow() {
@@ -158,11 +159,8 @@ public class GameActivity extends AppCompatActivity {
                 ));
 
                 // debugging
-                /*if (isSubmarine[row][col]) {
-                    button.setBackground(getResources().getDrawable(R.drawable.grid_element_with_submarine));
-                } else {
-                    button.setBackground(getResources().getDrawable(R.drawable.grid_element));
-                }*/
+                /*if (isSubmarine[row][col]) { button.setBackground(getResources().getDrawable(R.drawable.grid_element_with_submarine)); }
+                else { button.setBackground(getResources().getDrawable(R.drawable.grid_element)); }*/
                 // non-debugging
                 button.setBackground(getResources().getDrawable(R.drawable.grid_element));
 
@@ -179,8 +177,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col) {
-        //Toast.makeText(this, String.format("Button at %d, %d clicked", col, row), Toast.LENGTH_SHORT).show();
-
         if (isGameOver() || isPaused) {
             return;
         }

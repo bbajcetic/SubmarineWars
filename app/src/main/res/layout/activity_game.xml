@@ -33,14 +33,12 @@
             android:id="@+id/text_missiles_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Missiles Fired: 0"
             android:textColor="@android:color/holo_green_dark"
             style="@style/game_regular_text"/>
         <TextView
             android:id="@+id/text_submarines_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submarines Destroyed: 0/10"
             android:textColor="@android:color/holo_green_light"
             style="@style/game_regular_text"/>
     </LinearLayout>
@@ -51,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/game_title"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintLeft_toRightOf="@+id/back_arrow"
         app:layout_constraintRight_toLeftOf="@+id/info_layout"
@@ -109,13 +107,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MISSION SUCCESSFUL"
+                        android:text="@string/game_mission_success_msg"
                         style="@style/mission_success_text"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="You destroyed all the enemy submarines!"
+                        android:text="@string/game_mission_success_submsg"
                         android:textColor="@android:color/holo_green_dark"
                         style="@style/game_small_header_text"/>
                     <ImageView
@@ -136,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textColor="@android:color/holo_red_light"
                         style="@style/game_regular_text"/>
                     <TextView
@@ -152,7 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Home"
+                        android:text="@string/game_home_button"
                         android:layout_gravity="center_horizontal"
                         style="@style/game_button_text"
                         android:background="@drawable/menu_button"/>
@@ -191,7 +189,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Game Paused"
+                            android:text="@string/game_paused_msg"
                             android:textSize="30dp"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@android:color/white"
@@ -201,7 +199,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="8dp"
-                            android:text="Do you want to exit the game?"
+                            android:text="@string/game_paused_submsg"
                             android:textColor="@android:color/holo_green_dark"
                             style="@style/game_small_header_text"/>
                         <LinearLayout
@@ -217,7 +215,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingHorizontal="8dp"
                                 android:layout_marginHorizontal="8dp"
-                                android:text="Save"
+                                android:text="@string/game_save_button"
                                 style="@style/game_button_text"
                                 android:background="@drawable/menu_button"/>
                             <Button
@@ -226,7 +224,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="8dp"
                                 android:paddingHorizontal="8dp"
-                                android:text="Don't save"
+                                android:text="@string/game_dont_save_button"
                                 style="@style/game_button_text"
                                 android:background="@drawable/menu_button"/>
                         </LinearLayout>

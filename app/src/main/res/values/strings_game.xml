@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Game Screen -->
+    <string name="game_title">Submarine Wars</string>
+    <string name="game_missile_info">"Missiles Wasted: %d"</string>
+    <string name="game_submarines_info">"Submarines Destroyed: %d/%d"</string>
+    <string name="info_games_played">%d games played</string>
+
+    <!-- Mission success pop-up -->
+    <string name="game_mission_success_msg">MISSION SUCCESSFUL</string>
+    <string name="game_mission_success_submsg">You destroyed all the enemy submarines!</string>
+    <string name="game_home_button">Home</string>
+    <string name="game_over_score">Score: %d missiles wasted</string>
+    <string name="game_over_high_score">"Best Score: %d missiles wasted\n"</string>
+    <string name="game_over_high_score_info">"(%dx%d/%d submarines)"</string>
+
+    <!-- Pause pop-up -->
+    <string name="game_paused_msg">Game Paused</string>
+    <string name="game_paused_submsg">Do you want to exit the game?</string>
+    <string name="game_save_button">Save</string>
+    <string name="game_dont_save_button">Don\'t save</string>
+</resources>
