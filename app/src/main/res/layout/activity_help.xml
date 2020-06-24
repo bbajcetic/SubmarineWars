@@ -18,106 +18,138 @@
         android:background="@android:color/transparent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <LinearLayout
+    <TextView
+        android:id="@+id/text_help_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Help"
+        android:layout_gravity="center_horizontal"
+        style="@style/game_screen_title_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="32dp">
-        <TextView
-            android:id="@+id/text_help_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Help"
-            android:layout_gravity="center_horizontal"
-            style="@style/game_screen_title_text"/>
-
+        android:layout_height="0dp"
+        android:paddingHorizontal="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_help_title"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            android:padding="4dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/transparent_light_blue">
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/transparent_light_blue">
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.35"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/text_help_objective_title"
-                        android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:text="@string/help_objective_title"
-                        style="@style/game_small_header_text"/>
-                    <TextView
-                        android:id="@+id/text_help_game_objective"
-                        android:layout_width="match_parent"
+                        android:layout_weight="0.35"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:id="@+id/text_help_objective_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="@string/help_objective_title"
+                            style="@style/game_small_header_text"/>
+                        <TextView
+                            android:id="@+id/text_help_game_objective"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/help_game_objective"
+                            style="@style/game_regular_text"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/help_game_objective"
-                        style="@style/game_regular_text"/>
+                        android:layout_weight="0.65"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:id="@+id/text_help_controls_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="@string/help_controls_title"
+                            style="@style/game_small_header_text"/>
+                        <TextView
+                            android:id="@+id/text_help_game_controls"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/help_game_controls"
+                            style="@style/game_regular_text"/>
+                    </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.65"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/text_help_controls_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:text="@string/help_controls_title"
-                        style="@style/game_small_header_text"/>
-                    <TextView
-                        android:id="@+id/text_help_game_controls"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/help_game_controls"
-                        style="@style/game_regular_text"/>
-                </LinearLayout>
+                    android:text="@string/help_game_over"
+                    android:textSize="16sp"
+                    style="@style/game_regular_text"/>
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/help_game_over"
-                android:textSize="16sp"
-                style="@style/game_regular_text"/>
-        </LinearLayout>
 
-        <!-- About the developer/author content -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="12dp"
-            android:padding="4dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/transparent_light2_blue">
-            <TextView
-                android:id="@+id/text_help_about_header"
+            <!-- About the developer/author content -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:padding="4dp"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:text="@string/help_about_header"/>
-            <TextView
-                android:id="@+id/text_help_about_content"
-                android:layout_width="wrap_content"
+                android:background="@color/transparent_light2_blue">
+                <TextView
+                    android:id="@+id/text_help_about_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="@string/help_about_header"/>
+                <TextView
+                    android:id="@+id/text_help_about_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorLink="@android:color/primary_text_light"/>
+            </LinearLayout>
+
+            <!-- Citations content -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:padding="4dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorLink="@android:color/primary_text_light"/>
+                android:background="@color/transparent_light2_blue">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="@string/help_citations_header"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/help_citations_content"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,4 +37,24 @@
     <string name="game_over_high_score_info">"(%dx%d/%d submarines)"</string>
 
     <string name="info_games_played">%d games played</string>
+
+    <string name="help_citations_header">Citations</string>
+    <string name="help_citations_content">
+        Font:\n
+            \t\t-https://www.fontspace.com/uss-dallas-font-f33583\n
+            \t\t-https://www.fontspace.com/progress-font-f44241\n
+            \t\t-https://www.1001fonts.com/motion-control-font.html\n
+            \t\t-https://cooltext.com/Download-Font-Laconic\n
+            \t\t-https://www.1001fonts.com/olivers-barney-font.html\n
+        Images:\n
+            \t\t-https://opengameart.org/content/water-tiles\n
+            \t\t-lighter background of water (help, options)\n
+            \t\t-https://opengameart.org/content/water\n
+            \t\t-https://opengameart.org/content/bomb-1\n
+            \t\t-https://opengameart.org/content/rpg-gui-selection-arrow\n
+            \t\t-https://opengameart.org/content/battleships\n
+        Music:\n
+            \t\t-https://opengameart.org/content/war\n
+            \t\t-https://opengameart.org/content/i-do-know\n
+    </string>
 </resources>
