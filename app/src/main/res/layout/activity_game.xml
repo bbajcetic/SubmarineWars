@@ -109,6 +109,11 @@
                         android:text="You destroyed all the enemy submarines!"
                         android:textColor="@android:color/holo_green_dark"
                         style="@style/game_small_header_text"/>
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/submarine"/>
                     <TextView
                         android:id="@+id/text_score"
                         android:layout_width="wrap_content"
