@@ -8,6 +8,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,7 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+
 public class MainMenuActivity extends AppCompatActivity {
+    SoundManager soundManager;
+    boolean keepPlaying = false;
 
     Button buttonPlay;
     Button buttonOptions;
@@ -27,6 +32,9 @@ public class MainMenuActivity extends AppCompatActivity {
         Log.d("TAG", "onCreate: MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        soundManager = SoundManager.getInstance(getApplicationContext());
+        soundManager.startMusic(MENU_MUSIC);
 
         displayOptions();
         setupButtons();
@@ -68,15 +76,18 @@ public class MainMenuActivity extends AppCompatActivity {
     public void playGame(View view) {
         Intent gameIntent = GameActivity.makeIntent(this);
         startActivity(gameIntent);
+        //keepPlaying = true;
     }
     public void openOptions(View view) {
         Intent optionsIntent = OptionsActivity.makeIntent(this);
         startActivity(optionsIntent);
+        keepPlaying = true;
     }
 
     public void openHelp(View view) {
         Intent helpIntent = HelpActivity.makeIntent(this);
         startActivity(helpIntent);
+        keepPlaying = true;
     }
 
     private void displayOptions() {
@@ -138,12 +149,15 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         title_set.cancel();
+        soundManager.pauseMusic(keepPlaying);
+        keepPlaying = false;
     }
     @Override
     protected void onResume() {
         super.onResume();
         animateTitle();
         animateButtons();
+        soundManager.resumeMusic(MENU_MUSIC);
     }
     @Override
     protected void onDestroy() {

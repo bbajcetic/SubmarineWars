@@ -17,10 +17,15 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+
 public class OptionsActivity extends AppCompatActivity {
 
-    SharedPreferences prefs;
     public static final String SETTINGS_FILE = "settings_file";
+    SharedPreferences prefs;
+
+    SoundManager soundManager;
+    boolean keepPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,21 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         prefs = this.getSharedPreferences(SETTINGS_FILE, MODE_PRIVATE);
 
+        soundManager = SoundManager.getInstance(getApplicationContext());
+        soundManager.startMusic(MENU_MUSIC);
         setupBackArrow();
         createRadioButtons();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundManager.pauseMusic(keepPlaying);
+        keepPlaying = false;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.resumeMusic(MENU_MUSIC);
     }
 
     @SuppressLint("RestrictedApi")
@@ -164,6 +182,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void clickBackArrow(View view) {
+        keepPlaying = true;
         finish();
     }
 

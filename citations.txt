@@ -22,3 +22,7 @@ Citations to include in the game:
 -mission successful font:
     -https://www.1001fonts.com/olivers-barney-font.html
 
+-Main Menu music:
+    -https://opengameart.org/content/war
+-Gameplay music:
+    -https://opengameart.org/content/i-do-know

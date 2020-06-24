@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private Button buttonSkip;
@@ -84,31 +86,33 @@ public class WelcomeActivity extends AppCompatActivity {
         ObjectAnimator submarine_fade_in = ObjectAnimator.ofFloat(imageSubmarine, View.ALPHA, 1.0f);
         ObjectAnimator submarine_move1 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_X, -1500, 1500);
         ObjectAnimator submarine_move2 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_X, 1500, -1500);
-        ObjectAnimator submarine_move3 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_Y, 1000);
+        /*ObjectAnimator submarine_move3 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_Y, 1000);
         ObjectAnimator submarine_move4 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_X, 0);
         ObjectAnimator submarine_rotate1 = ObjectAnimator.ofFloat(imageSubmarine, View.ROTATION, 90);
         ObjectAnimator submarine_move5 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_Y, 750, -750);
-        ObjectAnimator submarine_move6 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_Y, -750, 750);
+        ObjectAnimator submarine_move6 = ObjectAnimator.ofFloat(imageSubmarine, View.TRANSLATION_Y, -750, 750);*/
+        submarine_fade_in.setDuration(0);
         submarine_move1.setDuration(2500);
         submarine_move2.setDuration(2500);
-        submarine_move5.setDuration(1500);
+        /*submarine_move5.setDuration(1500);
         submarine_move6.setDuration(1500);
-        submarine_fade_in.setDuration(0);
         submarine_move4.setDuration(0);
         submarine_move3.setDuration(0);
-        submarine_rotate1.setDuration(0);
+        submarine_rotate1.setDuration(0);*/
         //move_set.play(submarine_rotate1).before(submarine_move1);
         move_set.play(submarine_move1).with(submarine_fade_in);
         move_set.play(submarine_move2).after(submarine_move1);
-        move_set.play(submarine_move3).after(submarine_move2);
+        /*move_set.play(submarine_move3).after(submarine_move2);
         move_set.play(submarine_move4).with(submarine_rotate1).after(submarine_move3);
         //move_set.play(submarine_rotate1).after(submarine_move4);
         move_set.play(submarine_move5).after(submarine_move4);
-        move_set.play(submarine_move6).after(submarine_move5);
+        move_set.play(submarine_move6).after(submarine_move5);*/
         // 4 second delay before going to the Main Menu
         // (chose alpha animation because it's easy to create a delay this way, without needing
         //  another thread)
-        move_set.play(ObjectAnimator.ofFloat(imageSubmarine, View.ALPHA, 0.0f).setDuration(4000)).after(submarine_move6);
+
+        //move_set.play(ObjectAnimator.ofFloat(imageSubmarine, View.ALPHA, 0.0f).setDuration(4000)).after(submarine_move6);
+        move_set.play(ObjectAnimator.ofFloat(imageSubmarine, View.ALPHA, 0.0f).setDuration(4000)).after(submarine_move2);
         move_set.start();
 
         move_set.addListener(new Animator.AnimatorListener() {

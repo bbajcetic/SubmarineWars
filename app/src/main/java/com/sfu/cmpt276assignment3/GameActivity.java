@@ -28,8 +28,11 @@ import android.widget.Toast;
 import java.util.Random;
 
 import static com.sfu.cmpt276assignment3.OptionsActivity.SETTINGS_FILE;
+import static com.sfu.cmpt276assignment3.SoundManager.GAME_MUSIC;
 
 public class GameActivity extends AppCompatActivity {
+    SoundManager soundManager;
+    boolean keepPlaying = false;
 
     FrameLayout gameOverBox;
     FrameLayout gamePauseBox;
@@ -72,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
         gameOverBox = findViewById(R.id.game_over_box);
         gamePauseBox = findViewById(R.id.game_pause_box);
 
+        soundManager = SoundManager.getInstance(getApplicationContext());
+        soundManager.startMusic(GAME_MUSIC);
         setupSubmarines();
         setupInfoBox();
         setupGrid();
@@ -296,9 +301,6 @@ public class GameActivity extends AppCompatActivity {
         return intent;
     }
 
-    public void goHome(View view) {
-        finish();
-    }
     public void clickBackArrow(View view) {
         onBackPressed();
     }
@@ -314,15 +316,30 @@ public class GameActivity extends AppCompatActivity {
         View scrim = findViewById(R.id.scrim);
         scrim.setVisibility(View.VISIBLE);
     }
-    public void leaveScreen() {
-        finish();
-    }
-
     public void continueGame(View view) {
         isPaused = false;
         gamePauseBox.setVisibility(View.GONE);
         View scrim = findViewById(R.id.scrim);
         scrim.setVisibility(View.GONE);
+    }
+
+    public void goHome(View view) {
+        leaveScreen();
+    }
+    public void leaveScreen() {
+        //keepPlaying = true;
+        finish();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundManager.pauseMusic(keepPlaying);
+        keepPlaying = false;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.startMusic(GAME_MUSIC);
     }
 
 }

@@ -19,12 +19,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.sfu.cmpt276assignment3.SoundManager.MENU_MUSIC;
+
 public class HelpActivity extends AppCompatActivity {
+
+    SoundManager soundManager;
+    boolean keepPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+
+        soundManager = SoundManager.getInstance(getApplicationContext());
+        soundManager.startMusic(MENU_MUSIC);
 
         setupWebpageLink();
         setupBackArrow();
@@ -63,6 +71,19 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     public void clickBackArrow(View view) {
+        keepPlaying = true;
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundManager.pauseMusic(keepPlaying);
+        keepPlaying = false;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.resumeMusic(MENU_MUSIC);
     }
 }
