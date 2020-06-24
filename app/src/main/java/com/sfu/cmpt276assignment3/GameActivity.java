@@ -3,6 +3,7 @@ package com.sfu.cmpt276assignment3;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,11 +36,13 @@ public class GameActivity extends AppCompatActivity {
     Button[][] buttons;
 
     /* Data Structures for game computation */
-    // isClicked[][] indicated whether that specific spot has been clicked
+    // isClicked[][] indicates whether that specific spot has been clicked
+    // isDoubleClicked[][] indicates whether that specific spot has been clicked twice (for submarines, since the first click doesn't scan for nearby submarines)
     // isSubmarines[x][y] indicates whether that spot in the grid has a submarine
     // submarinesInCol[x] holds the number of submarines in that column
     // submarinesInRow[x] holds the number of submarines in that row
     boolean[][] isClicked;
+    boolean[][] isDoubleClicked;
     boolean[][] isSubmarine;
     int[] submarinesInCol;
     int[] submarinesInRow;
@@ -77,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void setupSubmarines() {
         isClicked = new boolean[numRows][numCols];
+        isDoubleClicked = new boolean[numRows][numCols];
         isSubmarine = new boolean[numRows][numCols];
         submarinesInCol = new int[numCols];
         submarinesInRow = new int[numRows];
@@ -85,6 +89,7 @@ public class GameActivity extends AppCompatActivity {
             for (int col = 0; col < numCols; col++) {
                 isSubmarine[row][col] = false;
                 isClicked[row][col] = false;
+                isDoubleClicked[row][col] = false;
             }
         }
 
@@ -141,11 +146,16 @@ public class GameActivity extends AppCompatActivity {
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f
                 ));
-                if (isSubmarine[row][col]) {
+
+                // debugging
+                /*if (isSubmarine[row][col]) {
                     button.setBackground(getResources().getDrawable(R.drawable.grid_element_with_submarine));
                 } else {
                     button.setBackground(getResources().getDrawable(R.drawable.grid_element));
-                }
+                }*/
+                // non-debugging
+                button.setBackground(getResources().getDrawable(R.drawable.grid_element));
+
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -163,6 +173,10 @@ public class GameActivity extends AppCompatActivity {
 
         if (isGameOver() || isPaused) {
             return;
+        }
+        if (isClicked[row][col] && !isDoubleClicked[row][col] && isSubmarine[row][col]) {
+            isDoubleClicked[row][col] = true;
+            displayHiddenNumber(row, col);
         }
         if (!isClicked[row][col]) {
             isClicked[row][col] = true;
@@ -188,6 +202,8 @@ public class GameActivity extends AppCompatActivity {
         gameOverBox.setVisibility(View.VISIBLE);
         View scrim = findViewById(R.id.scrim);
         scrim.setVisibility(View.VISIBLE);
+
+        ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
 
         // get high score
         int high_score = OptionsActivity.getHighScore(this);
@@ -219,7 +235,8 @@ public class GameActivity extends AppCompatActivity {
     private void updateHiddenNumbers() {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
-                if(isClicked[row][col] && !isSubmarine[row][col]) {
+                if((isClicked[row][col] && !isSubmarine[row][col])
+                        || isDoubleClicked[row][col]) {
                     displayHiddenNumber(row, col);
                 }
             }
