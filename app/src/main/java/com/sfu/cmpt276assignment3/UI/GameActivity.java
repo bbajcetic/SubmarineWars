@@ -13,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -25,6 +26,10 @@ import com.sfu.cmpt276assignment3.Model.GameData;
 import com.sfu.cmpt276assignment3.Model.GameModel;
 import com.sfu.cmpt276assignment3.Model.MusicManager;
 import com.sfu.cmpt276assignment3.R;
+
+import org.apache.commons.codec.DecoderException;
+
+import java.io.IOException;
 
 import static com.sfu.cmpt276assignment3.Model.MusicManager.GAME_MUSIC;
 
@@ -40,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
     int numCols;
     int numRows;
     int numSubmarines;
+    boolean isLoading = false;
 
     TextView missileInfo;
     TextView subInfo;
@@ -60,13 +66,37 @@ public class GameActivity extends AppCompatActivity {
         numCols = gameData.getNumCols();
         // create a game model
         game = new GameModel(numRows, numCols, numSubmarines);
-
         musicManager = MusicManager.getInstance(getApplicationContext());
         musicManager.startMusic(GAME_MUSIC);
         setupViews();
-        setupGrid();
         setupBackArrow();
         displayGamesPlayed();
+        if (gameData.hasSaveGame()) {
+            try {
+                String savedGame = gameData.getGame();
+                if (savedGame != null) {
+                    game.loadGame(gameData.getGame());
+                    isLoading = true;
+                    numCols = game.getNumCols();
+                    numRows = game.getNumRows();
+                    numSubmarines = game.getNumSubmarines();
+                    setupGrid();
+                    updateHiddenNumbers();
+                    updateInfoBox();
+                    isLoading = false;
+                } else {
+                    // still play a new game
+                    Log.d("TAG", "Trying to load null game");
+                    setupGrid();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        } else {
+            setupGrid();
+        }
     }
 
     private void displayGamesPlayed() {
@@ -122,7 +152,12 @@ public class GameActivity extends AppCompatActivity {
                 /*if (isSubmarine[row][col]) { button.setBackground(getResources().getDrawable(R.drawable.grid_element_with_submarine)); }
                 else { button.setBackground(getResources().getDrawable(R.drawable.grid_element)); }*/
                 // non-debugging
-                button.setBackground(getResources().getDrawable(R.drawable.grid_element));
+
+                if (isLoading && game.isDestroyedSubmarine(row, col)) {
+                    button.setBackground(getResources().getDrawable(R.drawable.grid_element_destroyed_submarine));
+                } else {
+                    button.setBackground(getResources().getDrawable(R.drawable.grid_element));
+                }
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,7 +194,7 @@ public class GameActivity extends AppCompatActivity {
 
         ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
         // get high score
-        int high_score = gameData.getHighScore();
+        int high_score = gameData.getHighScore(numSubmarines, numRows, numCols);
         int score = game.getMissiles_wasted();
         if (score < high_score || high_score == -1) {
             gameData.setHighScore(score);
@@ -227,7 +262,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void saveGame(View view) {
+    public void saveGame(View view) throws IOException {
+        String gameString = game.getGame();
+        gameData.saveGame(gameString);
+        leaveScreen();
     }
 
     public static Intent makeIntent(Context context) {
@@ -257,7 +295,8 @@ public class GameActivity extends AppCompatActivity {
         scrim.setVisibility(View.GONE);
     }
 
-    public void goHome(View view) {
+    public void dontSaveGame(View view) {
+        gameData.deleteGame();
         leaveScreen();
     }
     public void leaveScreen() {

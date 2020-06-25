@@ -11,22 +11,6 @@ import com.sfu.cmpt276assignment3.R;
  * - Saved game state
  */
 public class GameData {
-    /*private List<Lens> lenses = new ArrayList<>();
-    private void saveLenses() {
-        Gson gson = new Gson();
-        String json_lenses = gson.toJson(lenses);
-        Log.d("DEBUG", "Lenses = " + json_lenses);
-        SharedPreferences.Editor preferencesEditor = preferences.edit();
-        preferencesEditor.putString("SAVED_LENSES", json_lenses);
-        preferencesEditor.apply();
-    }
-
-    private void loadLenses(String json_lenses) {
-        Gson gson = new Gson();
-        Type lensesListType = new TypeToken<ArrayList<Lens>>(){}.getType();
-        lenses = gson.fromJson(json_lenses, lensesListType);
-    }*/
-
     public static final String SETTINGS_FILE = "settings_file";
     private int numCols;
     private int numRows;
@@ -37,6 +21,7 @@ public class GameData {
     private String numSubmarinesKey = "numSubmarines";
     private String numGamesPlayedKey = "numGamesPlayed";
     private String highScoreKeyFormat = "high_score_%d_%d_%d";
+    private String savedGameKey = "savedGameKey";
     private SharedPreferences prefs;
 
     // Singleton pattern
@@ -63,6 +48,7 @@ public class GameData {
     public int getNumCols() { return numCols; }
     public int getNumSubmarines() { return numSubmarines; }
     public int getNumGamesPlayed() { return numGamesPlayed; }
+    public String getGame() { return prefs.getString(savedGameKey, null); }
 
     public void setNumCols(int numCols) {
         SharedPreferences.Editor editor = prefs.edit();
@@ -87,6 +73,22 @@ public class GameData {
         editor.putInt(numGamesPlayedKey, numGamesPlayed);
         editor.apply();
         this.numGamesPlayed = numGamesPlayed;
+    }
+    public boolean hasSaveGame() {
+        return (getGame() != null);
+    }
+    public void saveGame(String game) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(savedGameKey, game);
+        editor.apply();
+    }
+    public void deleteGame() {
+        if (getGame() == null) {
+            return;
+        }
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(savedGameKey);
+        editor.apply();
     }
     public void setBoardSize(int numRows, int numCols) {
         setNumRows(numRows);

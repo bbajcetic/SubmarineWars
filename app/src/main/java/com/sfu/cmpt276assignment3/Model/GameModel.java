@@ -1,7 +1,19 @@
 package com.sfu.cmpt276assignment3.Model;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.sfu.cmpt276assignment3.R;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,13 +27,17 @@ public class GameModel {
     // isSubmarines[x][y] indicates whether that spot in the grid has a submarine
     // submarinesInCol[x] holds the number of submarines in that column
     // submarinesInRow[x] holds the number of submarines in that row
+
     private boolean[][] isClicked;
     private boolean[][] isDoubleClicked;
     private boolean[][] isSubmarine;
-    private int[] submarinesInCol;
     private int[] submarinesInRow;
+    private int[] submarinesInCol;
 
     private int numSubmarines;
+
+    private int numRows;
+    private int numCols;
 
     private int missiles_wasted;
     private int submarines_destroyed;
@@ -31,6 +47,9 @@ public class GameModel {
     public int getMissiles_wasted() { return missiles_wasted; }
     public int getSubmarines_destroyed() { return submarines_destroyed; }
     public int getNumSubmarines() { return numSubmarines; }
+    public int getNumRows() { return numRows; }
+    public int getNumCols() { return numCols; }
+
 
     private Random random;
 
@@ -43,12 +62,14 @@ public class GameModel {
         submarines_destroyed = 0;
 
         this.numSubmarines = numSubmarines;
+        this.numRows = numRows;
+        this.numCols = numCols;
 
         isClicked = new boolean[numRows][numCols];
         isDoubleClicked = new boolean[numRows][numCols];
         isSubmarine = new boolean[numRows][numCols];
-        submarinesInCol = new int[numCols];
         submarinesInRow = new int[numRows];
+        submarinesInCol = new int[numCols];
         // initialize all spots to false
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
@@ -66,8 +87,8 @@ public class GameModel {
             if (!isSubmarine[row][col]) {
                 isSubmarine[row][col] = true;
                 submarinesLeft--;
-                submarinesInCol[col]++;
                 submarinesInRow[row]++;
+                submarinesInCol[col]++;
             }
         }
     }
@@ -110,11 +131,65 @@ public class GameModel {
         }
         return false;
     }
+
+    public boolean isDestroyedSubmarine(int row, int col) {
+        return (isClicked[row][col] && isSubmarine[row][col]);
+    }
     public void pause() {
         isPaused = true;
     }
 
     public void resume() {
         isPaused = false;
+    }
+
+    public String getGame() throws IOException {
+        Gson gson = new Gson();
+        String[] variables = new String[10];
+        variables[0] = Integer.toString(numSubmarines);
+        variables[1] = Integer.toString(numRows);
+        variables[2] = Integer.toString(numCols);
+        variables[3] = Integer.toString(missiles_wasted);
+        variables[4] = Integer.toString(submarines_destroyed);
+
+        variables[5] = gson.toJson(isClicked);
+        variables[6] = gson.toJson(isDoubleClicked);
+        variables[7] = gson.toJson(isSubmarine);
+        variables[8] = gson.toJson(submarinesInRow);
+        variables[9] = gson.toJson(submarinesInCol);
+
+        String gameString = serialize(variables);
+        //Log.d("TAG", "get: Submarines destroyed: " + submarines_destroyed);
+        return gameString;
+    }
+
+    // These 2 functions are from: https://stackoverflow.com/questions/13271503/converting-array-string-to-string-and-back-in-java
+    private String serialize(String[] strings) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        new ObjectOutputStream(out).writeObject(strings);
+        String serializedString = new String(Hex.encodeHex(out.toByteArray()));
+        return serializedString;
+    }
+    private String[] deserialize(String serializedString) throws DecoderException, IOException, ClassNotFoundException {
+        ByteArrayInputStream in = new ByteArrayInputStream(Hex.decodeHex(serializedString.toCharArray()));
+        String[] deserializedString = (String[]) new ObjectInputStream(in).readObject();
+        return deserializedString;
+    }
+
+    public void loadGame(String game) throws ClassNotFoundException, IOException, DecoderException {
+        Gson gson = new Gson();
+        String gameState[] = deserialize(game);
+        numSubmarines = Integer.parseInt(gameState[0]);
+        numRows = Integer.parseInt(gameState[1]);
+        numCols = Integer.parseInt(gameState[2]);
+        missiles_wasted = Integer.parseInt(gameState[3]);
+        submarines_destroyed = Integer.parseInt(gameState[4]);
+
+        isClicked = gson.fromJson(gameState[5], boolean[][].class);
+        isDoubleClicked = gson.fromJson(gameState[6], boolean[][].class);
+        isSubmarine = gson.fromJson(gameState[7], boolean[][].class);
+        submarinesInRow = gson.fromJson(gameState[8], int[].class);
+        submarinesInCol = gson.fromJson(gameState[9], int[].class);
+        //Log.d("TAG", "load: Submarines destroyed: " + submarines_destroyed);
     }
 }
