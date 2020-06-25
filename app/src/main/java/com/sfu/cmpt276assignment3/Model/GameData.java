@@ -1,11 +1,27 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.View;
-import android.widget.Toast;
+
+import com.sfu.cmpt276assignment3.R;
 
 public class GameData {
+    /*private List<Lens> lenses = new ArrayList<>();
+    private void saveLenses() {
+        Gson gson = new Gson();
+        String json_lenses = gson.toJson(lenses);
+        Log.d("DEBUG", "Lenses = " + json_lenses);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        preferencesEditor.putString("SAVED_LENSES", json_lenses);
+        preferencesEditor.apply();
+    }
+
+    private void loadLenses(String json_lenses) {
+        Gson gson = new Gson();
+        Type lensesListType = new TypeToken<ArrayList<Lens>>(){}.getType();
+        lenses = gson.fromJson(json_lenses, lensesListType);
+    }*/
+
     public static final String SETTINGS_FILE = "settings_file";
     private int numCols;
     private int numRows;

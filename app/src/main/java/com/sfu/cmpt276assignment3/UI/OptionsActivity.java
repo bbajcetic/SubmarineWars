@@ -1,4 +1,4 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatRadioButton;
@@ -7,7 +7,6 @@ import androidx.core.content.res.ResourcesCompat;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -16,12 +15,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.sfu.cmpt276assignment3.Model.GameData;
+import com.sfu.cmpt276assignment3.Model.MusicManager;
+import com.sfu.cmpt276assignment3.R;
 
-import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
+import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
 public class OptionsActivity extends AppCompatActivity implements View.OnClickListener {
 

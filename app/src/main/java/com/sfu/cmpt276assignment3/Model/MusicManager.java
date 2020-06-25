@@ -1,7 +1,9 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.Model;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+
+import com.sfu.cmpt276assignment3.R;
 
 public class MusicManager {
     public static int MENU_MUSIC = R.raw.menu_music;

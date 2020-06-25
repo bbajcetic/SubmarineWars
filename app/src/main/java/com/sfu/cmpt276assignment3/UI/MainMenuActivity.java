@@ -1,4 +1,4 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +14,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
+import com.sfu.cmpt276assignment3.GameActivity;
+import com.sfu.cmpt276assignment3.Model.GameData;
+import com.sfu.cmpt276assignment3.Model.MusicManager;
+import com.sfu.cmpt276assignment3.R;
+
+import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
 public class MainMenuActivity extends AppCompatActivity {
     MusicManager musicManager;

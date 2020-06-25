@@ -1,4 +1,4 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import static com.sfu.cmpt276assignment3.MusicManager.MENU_MUSIC;
+import com.sfu.cmpt276assignment3.Model.MusicManager;
+import com.sfu.cmpt276assignment3.R;
+
+import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
 public class HelpActivity extends AppCompatActivity {
 

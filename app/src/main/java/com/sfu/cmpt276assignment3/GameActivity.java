@@ -21,48 +21,33 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.sfu.cmpt276assignment3.Model.GameData;
+import com.sfu.cmpt276assignment3.Model.GameModel;
+import com.sfu.cmpt276assignment3.Model.MusicManager;
+
 import java.util.Random;
 
-import static com.sfu.cmpt276assignment3.MusicManager.GAME_MUSIC;
+import static com.sfu.cmpt276assignment3.Model.MusicManager.GAME_MUSIC;
 
 public class GameActivity extends AppCompatActivity {
     GameData gameData;
     MusicManager musicManager;
     boolean keepPlaying = false;
 
-    FrameLayout gameOverBox;
-    FrameLayout gamePauseBox;
-    Button[][] buttons;
-
-    /* Data Structures for game computation */
-    // isClicked[][] indicates whether that specific spot has been clicked
-    // isDoubleClicked[][] indicates whether that specific spot has been clicked twice (for submarines, since the first click doesn't scan for nearby submarines)
-    // isSubmarines[x][y] indicates whether that spot in the grid has a submarine
-    // submarinesInCol[x] holds the number of submarines in that column
-    // submarinesInRow[x] holds the number of submarines in that row
-    boolean[][] isClicked;
-    boolean[][] isDoubleClicked;
-    boolean[][] isSubmarine;
-    int[] submarinesInCol;
-    int[] submarinesInRow;
-
     int numCols;
     int numRows;
     int numSubmarines;
 
-    int missiles_wasted = 0;
-    int submarines_destroyed = 0;
-
-    boolean isPaused = false;
-
     TextView missileInfo;
     TextView subInfo;
     LinearLayout grid;
-    Random random;
+    GameModel game;
+    FrameLayout gameOverBox;
+    FrameLayout gamePauseBox;
+    Button[][] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        random = new Random();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         // get game configuration info
@@ -70,10 +55,11 @@ public class GameActivity extends AppCompatActivity {
         numSubmarines = gameData.getNumSubmarines();
         numRows = gameData.getNumRows();
         numCols = gameData.getNumCols();
+        // create a game model
+        game = new GameModel(numRows, numCols, numSubmarines);
 
         musicManager = MusicManager.getInstance(getApplicationContext());
         musicManager.startMusic(GAME_MUSIC);
-        setupSubmarines();
         setupViews();
         setupGrid();
         setupBackArrow();
@@ -87,35 +73,6 @@ public class GameActivity extends AppCompatActivity {
         textGamesPlayed.setText(games_played_string);
     }
 
-    private void setupSubmarines() {
-        isClicked = new boolean[numRows][numCols];
-        isDoubleClicked = new boolean[numRows][numCols];
-        isSubmarine = new boolean[numRows][numCols];
-        submarinesInCol = new int[numCols];
-        submarinesInRow = new int[numRows];
-        // initialize all spots to false
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                isSubmarine[row][col] = false;
-                isClicked[row][col] = false;
-                isDoubleClicked[row][col] = false;
-            }
-        }
-        // generate numSubmarines randomly in the boolean multi-array isSubmarine
-        int submarinesLeft = numSubmarines;
-        while (submarinesLeft > 0) {
-            int randomNum = random.nextInt(numCols * numRows);
-            int row = randomNum / numCols;
-            int col = randomNum - (row * numCols);
-            if (!isSubmarine[row][col]) {
-                isSubmarine[row][col] = true;
-                submarinesLeft--;
-                submarinesInCol[col]++;
-                submarinesInRow[row]++;
-            }
-        }
-    }
-
     private void setupViews() {
         gameOverBox = findViewById(R.id.game_over_box);
         gamePauseBox = findViewById(R.id.game_pause_box);
@@ -124,9 +81,9 @@ public class GameActivity extends AppCompatActivity {
         updateInfoBox();
     }
     private void updateInfoBox() {
-        String missileInfoString = getResources().getString(R.string.game_missile_info, missiles_wasted);
+        String missileInfoString = getResources().getString(R.string.game_missile_info, game.getMissiles_wasted());
         String subInfoString = getResources().getString(R.string.game_submarines_info,
-                submarines_destroyed, numSubmarines);
+                game.getSubmarines_destroyed(), numSubmarines);
         missileInfo.setText(missileInfoString);
         subInfo.setText(subInfoString);
     }
@@ -177,30 +134,17 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col) {
-        if (isGameOver() || isPaused) {
+        if (game.isGameOver() || game.isPaused()) {
             return;
         }
-        if (isClicked[row][col] && !isDoubleClicked[row][col] && isSubmarine[row][col]) {
-            isDoubleClicked[row][col] = true;
-            missiles_wasted++;
-            displayHiddenNumber(row, col);
+        boolean isSubmarine = game.fireMissile(row, col);
+        if (isSubmarine) {
+            setBackground(row, col, R.drawable.grid_element_destroyed_submarine);
         }
-        if (!isClicked[row][col]) {
-            isClicked[row][col] = true;
-            if(isSubmarine[row][col]) {
-                submarines_destroyed++;
-                setBackground(row, col, R.drawable.grid_element_destroyed_submarine);
-                submarinesInRow[row]--;
-                submarinesInCol[col]--;
-                updateHiddenNumbers();
-            } else {
-                missiles_wasted++;
-                displayHiddenNumber(row, col);
-            }
-        }
+        updateHiddenNumbers();
 
         updateInfoBox();
-        if (isGameOver()) {
+        if (game.isGameOver()) {
             showGameOverBox();
         }
     }
@@ -213,15 +157,16 @@ public class GameActivity extends AppCompatActivity {
         ObjectAnimator.ofFloat(gameOverBox, View.TRANSLATION_X, -2000, 0).setDuration(2000).start();
         // get high score
         int high_score = gameData.getHighScore();
-        if (missiles_wasted < high_score || high_score == -1) {
-            gameData.setHighScore(missiles_wasted);
-            high_score = missiles_wasted;
+        int score = game.getMissiles_wasted();
+        if (score < high_score || high_score == -1) {
+            gameData.setHighScore(score);
+            high_score = score;
         }
 
         TextView textScore = findViewById(R.id.text_score);
         TextView textHighScore = findViewById(R.id.text_high_score);
         TextView textHighScoreInfo = findViewById(R.id.text_high_score_info);
-        textScore.setText(getResources().getString(R.string.game_over_score, missiles_wasted));
+        textScore.setText(getResources().getString(R.string.game_over_score, score));
         textHighScore.setText(getResources().getString(R.string.game_over_high_score, high_score));
         textHighScoreInfo.setText(getResources().getString(R.string.game_over_high_score_info,
                 numRows, numCols, numSubmarines));
@@ -229,12 +174,9 @@ public class GameActivity extends AppCompatActivity {
         gameData.setNumGamesPlayed(gameData.getNumGamesPlayed() + 1);
     }
 
-    private boolean isGameOver() {
-        return submarines_destroyed == numSubmarines;
-    }
     private void displayHiddenNumber(int row, int col) {
         Button button = buttons[row][col];
-        int num_hidden = submarinesInRow[row] + submarinesInCol[col];
+        int num_hidden = game.getHiddenCount(row, col);
         button.setText(Integer.toString(num_hidden));
         button.setTextColor(getResources().getColor(android.R.color.holo_green_light));
         button.setTextSize(48);
@@ -243,8 +185,7 @@ public class GameActivity extends AppCompatActivity {
     private void updateHiddenNumbers() {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
-                if((isClicked[row][col] && !isSubmarine[row][col])
-                        || isDoubleClicked[row][col]) {
+                if (game.isNumberDisplayed(row,col)) {
                     displayHiddenNumber(row, col);
                 }
             }
@@ -253,7 +194,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void setBackground(int row, int col, int drawable_resource) {
         Button button = buttons[row][col];
-        //Log.d("TAG", "" + row + " " + col);
 
         // Lock buttons
         lockButtonSizes();
@@ -269,9 +209,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void lockButtonSizes() {
-        int numCols = gameData.getNumCols();
-        int numRows = gameData.getNumRows();
-
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
                 Button button = buttons[row][col];
@@ -300,18 +237,18 @@ public class GameActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (!isGameOver() && !isPaused) {
+        if (!game.isGameOver() && !game.isPaused()) {
+            game.pause();
             pauseScreen();
         }
     }
     private void pauseScreen() {
-        isPaused = true;
         gamePauseBox.setVisibility(View.VISIBLE);
         View scrim = findViewById(R.id.scrim);
         scrim.setVisibility(View.VISIBLE);
     }
     public void continueGame(View view) {
-        isPaused = false;
+        game.resume();
         gamePauseBox.setVisibility(View.GONE);
         View scrim = findViewById(R.id.scrim);
         scrim.setVisibility(View.GONE);
