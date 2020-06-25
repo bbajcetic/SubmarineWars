@@ -4,6 +4,10 @@ import com.sfu.cmpt276assignment3.R;
 
 import java.util.Random;
 
+/**
+ * This class is used for storing and updating the state of the Game. The Game Activity
+ * interfaces with this class to update the UI
+ */
 public class GameModel {
     /* Data Structures for game computation */
     // isClicked[][] indicates whether that specific spot has been clicked
@@ -11,26 +15,24 @@ public class GameModel {
     // isSubmarines[x][y] indicates whether that spot in the grid has a submarine
     // submarinesInCol[x] holds the number of submarines in that column
     // submarinesInRow[x] holds the number of submarines in that row
-    boolean[][] isClicked;
-    boolean[][] isDoubleClicked;
-    boolean[][] isSubmarine;
-    int[] submarinesInCol;
-    int[] submarinesInRow;
+    private boolean[][] isClicked;
+    private boolean[][] isDoubleClicked;
+    private boolean[][] isSubmarine;
+    private int[] submarinesInCol;
+    private int[] submarinesInRow;
 
-    int numCols;
-    int numRows;
-    int numSubmarines;
+    private int numSubmarines;
 
-    int missiles_wasted;
-    int submarines_destroyed;
+    private int missiles_wasted;
+    private int submarines_destroyed;
 
-    boolean isPaused ;
+    private boolean isPaused ;
 
     public int getMissiles_wasted() { return missiles_wasted; }
     public int getSubmarines_destroyed() { return submarines_destroyed; }
     public int getNumSubmarines() { return numSubmarines; }
 
-    Random random;
+    private Random random;
 
     public GameModel(int numRows, int numCols, int numSubmarines) {
         random = new Random();
@@ -40,8 +42,6 @@ public class GameModel {
         missiles_wasted = 0;
         submarines_destroyed = 0;
 
-        this.numRows = numRows;
-        this.numCols = numCols;
         this.numSubmarines = numSubmarines;
 
         isClicked = new boolean[numRows][numCols];

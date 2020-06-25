@@ -5,6 +5,11 @@ import android.content.SharedPreferences;
 
 import com.sfu.cmpt276assignment3.R;
 
+/**
+ * This class is used as an interface to the permanent data for the other classes to use:
+ * - Options configurations (board size, number of submarines)
+ * - Saved game state
+ */
 public class GameData {
     /*private List<Lens> lenses = new ArrayList<>();
     private void saveLenses() {

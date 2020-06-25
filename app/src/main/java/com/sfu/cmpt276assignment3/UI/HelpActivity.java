@@ -21,6 +21,11 @@ import com.sfu.cmpt276assignment3.R;
 
 import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
+/**
+ * This class is the Help Activity UI: responsible for displaying information to the player
+ * about how to play the game, the developer of the game, and citations to free resources used in
+ * the game
+ */
 public class HelpActivity extends AppCompatActivity {
 
     MusicManager musicManager;

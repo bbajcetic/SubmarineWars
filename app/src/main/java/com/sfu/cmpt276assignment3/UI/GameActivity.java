@@ -1,4 +1,4 @@
-package com.sfu.cmpt276assignment3;
+package com.sfu.cmpt276assignment3.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -24,11 +24,14 @@ import android.widget.TextView;
 import com.sfu.cmpt276assignment3.Model.GameData;
 import com.sfu.cmpt276assignment3.Model.GameModel;
 import com.sfu.cmpt276assignment3.Model.MusicManager;
-
-import java.util.Random;
+import com.sfu.cmpt276assignment3.R;
 
 import static com.sfu.cmpt276assignment3.Model.MusicManager.GAME_MUSIC;
 
+/**
+ * This class is used for the Game UI: it uses the Game Model to update the state of
+ * the game and then displays the game state visually to the player through the UI
+ */
 public class GameActivity extends AppCompatActivity {
     GameData gameData;
     MusicManager musicManager;

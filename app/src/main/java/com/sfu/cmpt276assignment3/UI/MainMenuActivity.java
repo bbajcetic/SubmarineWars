@@ -15,13 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.sfu.cmpt276assignment3.GameActivity;
 import com.sfu.cmpt276assignment3.Model.GameData;
 import com.sfu.cmpt276assignment3.Model.MusicManager;
 import com.sfu.cmpt276assignment3.R;
 
 import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
+/**
+ * This class shows the Main Menu UI and allows the player to navigate between the different
+ * screens in the game
+ */
 public class MainMenuActivity extends AppCompatActivity {
     MusicManager musicManager;
     boolean keepPlaying = false;

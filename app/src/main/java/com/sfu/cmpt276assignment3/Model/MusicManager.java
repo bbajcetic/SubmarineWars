@@ -5,6 +5,9 @@ import android.media.MediaPlayer;
 
 import com.sfu.cmpt276assignment3.R;
 
+/**
+ * This class is responsible for playing background game music for all the activities
+ */
 public class MusicManager {
     public static int MENU_MUSIC = R.raw.menu_music;
     public static int GAME_MUSIC = R.raw.game_music;

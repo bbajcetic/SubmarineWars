@@ -15,6 +15,10 @@ import android.widget.TextView;
 
 import com.sfu.cmpt276assignment3.R;
 
+/**
+ * This class shows the Welcome screen UI and its animations to the user. It also gives the user
+ * the ability to skip the animations and go to the Main Menu
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     private Button buttonSkip;

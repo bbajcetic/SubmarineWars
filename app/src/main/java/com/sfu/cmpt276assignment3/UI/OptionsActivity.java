@@ -24,6 +24,10 @@ import com.sfu.cmpt276assignment3.R;
 
 import static com.sfu.cmpt276assignment3.Model.MusicManager.MENU_MUSIC;
 
+/**
+ * This class is the Options Activity UI: responsible for displaying the options to the player and
+ * allowing them to adjust them. Uses the GameData class to change and retrieve the options
+ */
 public class OptionsActivity extends AppCompatActivity implements View.OnClickListener {
 
     GameData gameData;
