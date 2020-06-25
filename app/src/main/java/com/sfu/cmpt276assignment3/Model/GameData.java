@@ -103,6 +103,10 @@ public class GameData {
         String keyString = String.format(highScoreKeyFormat, numSubmarines, numRows, numCols);
         return prefs.getInt(keyString, -1);
     }
+    public int getHighScore(int numSubmarines, int numRows, int numCols) {
+        String keyString = String.format(highScoreKeyFormat, numSubmarines, numRows, numCols);
+        return prefs.getInt(keyString, -1);
+    }
 
     public void resetData(Context context) {
         int[] numSubmarinesOptions = context.getResources().getIntArray(R.array.num_submarines_options);

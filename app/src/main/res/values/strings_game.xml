@@ -11,7 +11,7 @@
     <string name="game_mission_success_submsg">You destroyed all the enemy submarines!</string>
     <string name="game_home_button">Home</string>
     <string name="game_over_score">Score: %d missiles wasted</string>
-    <string name="game_over_high_score">"Best Score: %d missiles wasted\n"</string>
+    <string name="game_over_high_score">"Top Score: %d missiles wasted\n"</string>
     <string name="game_over_high_score_info">"(%dx%d/%d submarines)"</string>
 
     <!-- Pause pop-up -->

@@ -18,22 +18,24 @@
         android:background="@android:color/transparent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/text_options_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/options_title"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/game_screen_title_text"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingVertical="16dp"
         android:paddingHorizontal="64dp"
-        tools:context=".UI.OptionsActivity">
-
-        <TextView
-            android:id="@+id/text_options_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_title"
-            android:layout_gravity="center_horizontal"
-            style="@style/game_screen_title_text"/>
-
+        tools:context=".UI.OptionsActivity"
+        app:layout_constraintTop_toBottomOf="@+id/text_options_title">
         <LinearLayout
             android:id="@+id/layout_board_size"
             android:layout_width="match_parent"
@@ -48,7 +50,7 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp">
+                android:layout_marginTop="16dp">
 
                 <TextView
                     android:id="@+id/header_board_size"
@@ -74,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="16dp">
                 <TextView
                     android:id="@+id/header_number_of_submarines"
                     android:layout_width="240dp"
@@ -85,13 +87,25 @@
             </RadioGroup>
         </LinearLayout>
         <Button
-            android:id="@+id/reset_high_score"
+            android:id="@+id/reset_high_scores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:padding="16dp"
             android:text="@string/options_reset_button"
+            android:textColor="@android:color/holo_red_dark"
+            style="@style/game_button_text"
+            android:background="@drawable/menu_button"/>
+        <Button
+            android:id="@+id/show_high_scores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="@string/options_see_high_scores"
+            android:textColor="@android:color/white"
             style="@style/game_button_text"
             android:background="@drawable/menu_button"/>
     </LinearLayout>
@@ -117,7 +131,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="gone"
-                android:background="@drawable/game_success_box">
+                android:background="@drawable/action_box">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -145,8 +159,8 @@
                                 android:id="@+id/confirm_yes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="32dp"
                                 android:paddingHorizontal="8dp"
-                                android:layout_marginHorizontal="8dp"
                                 android:text="@string/options_reset_button_yes"
                                 style="@style/game_button_text"
                                 android:background="@drawable/menu_button"/>
@@ -154,12 +168,61 @@
                                 android:id="@+id/confirm_no"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="8dp"
+                                android:layout_marginLeft="32dp"
                                 android:paddingHorizontal="8dp"
                                 android:text="@string/confirm_reset_button_no"
                                 style="@style/game_button_text"
                                 android:background="@drawable/menu_button"/>
                         </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/options_show_high_scores"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                android:background="@drawable/high_score_box">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="32dp"
+                        android:paddingVertical="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/options_high_scores_title"
+                            android:textSize="30sp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@android:color/white"
+                            style="@style/game_button_text"/>
+                        <TextView
+                            android:id="@+id/high_score_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@android:color/white"
+                            style="@style/game_regular_text"/>
+                        <Button
+                            android:id="@+id/hide_high_scores"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="8dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:text="@string/options_close_high_scores"
+                            style="@style/game_button_text"
+                            android:background="@drawable/menu_button"/>
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
