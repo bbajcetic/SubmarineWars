@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
     int numRows;
     int numSubmarines;
     boolean isLoading = false;
+    boolean saveGame = true; // default behaviour is to save game upon leaving activity
 
     TextView missileInfo;
     TextView subInfo;
@@ -262,11 +263,6 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void saveGame(View view) throws IOException {
-        String gameString = game.getGame();
-        gameData.saveGame(gameString);
-        leaveScreen();
-    }
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, GameActivity.class);
@@ -295,8 +291,12 @@ public class GameActivity extends AppCompatActivity {
         scrim.setVisibility(View.GONE);
     }
 
+    public void saveGame(View view) {
+        leaveScreen();
+    }
     public void dontSaveGame(View view) {
         gameData.deleteGame();
+        saveGame = false;
         leaveScreen();
     }
     public void leaveScreen() {
@@ -308,6 +308,15 @@ public class GameActivity extends AppCompatActivity {
         super.onPause();
         musicManager.pauseMusic(keepPlaying);
         keepPlaying = false;
+        if (saveGame) {
+            try {
+                String gameString = null;
+                gameString = game.getGame();
+                gameData.saveGame(gameString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @Override
     protected void onResume() {
