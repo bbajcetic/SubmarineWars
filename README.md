@@ -1,5 +1,3 @@
 # Submarine Wars
 
-- A game developed for the Android platform
-- CMPT 276 Project
-
+- A Minesweeper inspired game developed for the Android platform
